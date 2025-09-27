@@ -1,19 +1,25 @@
 package model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "matches")
 public class Match {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "player1", unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player1", referencedColumnName = "id")
     private Player playerOne;
 
-    @Column(name = "player2", unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player2", referencedColumnName = "id")
     private Player playerTwo;
 
-    @Column(name = "winner", unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 }
