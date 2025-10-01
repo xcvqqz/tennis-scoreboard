@@ -1,6 +1,7 @@
 package util;
 
 import exception.DataBaseException;
+import model.Match;
 import model.Player;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -29,7 +30,7 @@ public class HibernateUtil {
                 configuration.setProperties(hibernateProperties);
 
                 configuration.addAnnotatedClass(Player.class);
-//                configuration.addAnnotatedClass(Match.class);
+                configuration.addAnnotatedClass(Match.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

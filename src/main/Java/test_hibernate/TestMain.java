@@ -1,15 +1,27 @@
 package test_hibernate;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import model.Match;
 import model.Player;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestMain {
 
+        @PersistenceContext
+        private EntityManager em;
+
 
         public static void main(String[] args) {
+
+
+
 
 //        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 //
@@ -78,8 +90,8 @@ public class TestMain {
 //                        Player playerGromila = new Player("Gromila");
 //                        session.persist(playerGromila);
 //
-//                        Player player = session.find(Player.class, playerGromila.getId());
-//                        player.setName("Gromila2");
+//                        Player player2 = session.find(Player.class, playerGromila.getId());
+//                        player2.setName("Gromila2");
 //                        System.out.println(player.getName());
 //
 //                        session.getTransaction().commit();
@@ -97,21 +109,125 @@ public class TestMain {
 //                SQL - SELECT * FROM players;
 //                HQL - FROM Player WHERE name = 'Max'
 
+//
+//                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//
+//                        session.beginTransaction();
+//
+//                        List<Player> playerList = session.createQuery("from Player where name = 'Max'").getResultList();
+//                        session.createQuery("update Player set name ='bot' WHERE LENGTH(name)=4").executeUpdate();
+//
+//                        session.getTransaction().commit();
+//
+//
+//                } catch (Exception e) {
+//                        System.err.println("Error during testing:");
+//                        e.printStackTrace();}
+//--------------------------------------------------------------------------------------------------------------
+//                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//
+//                        session.beginTransaction();
+//
+//
+//                        Match match = session.find(Match.class, 3l);
+//                        Player player = match.getWinner();
+//                        System.out.println(player);
+//
+//
+//                        session.getTransaction().commit();
+//
+//                } catch (Exception e) {
+//                        System.err.println("Error during testing:");
+//                        e.printStackTrace();}
+//----------------------------------------------------------------------------------------------------------------
+//
+//                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//
+//                        session.beginTransaction();
+//
+//
+//                        Match match = new Match();
+//                     Player playerBobby = new Player();
+//                     Player playerMargo = new Player();
+//
+//                     playerBobby.setName("Bobby");
+//                     playerMargo.setName("Margo");
+//
+//                     match.setPlayerOne(playerBobby);
+//                     match.setPlayerTwo(playerMargo);
+//                     match.setWinner(playerMargo);
+//
+//                     playerBobby.setMatchesAsPlayerOne(new ArrayList<>(Collections.singleton(match)));
+//                     playerMargo.setMatchesAsPlayerTwo(new ArrayList<>(Collections.singleton(match)));
+//                     playerMargo.setWonMatches(new ArrayList<>(Collections.singleton(match)));
+//
+//
+//                     for (Match m : playerBobby.getMatchesAsPlayerOne()){
+//                             System.out.println("игрок номер 1 : " + m.getPlayerOne().getName());
+//                     }
+//
+//                        for (Match m : playerMargo.getMatchesAsPlayerTwo()){
+//                                System.out.println("игрок номер 2 : " + m.getPlayerTwo().getName());
+//                        }
+//
+//                        for (Match m : playerMargo.getWonMatches()){
+//                                System.out.println("ПОБЕДИТЕЛЬ : " + m.getWinner().getName());
+//                        }
+//
+//                     session.getTransaction().commit();
+//
+//                } catch (Exception e) {
+//                        System.err.println("Error during testing:");
+//                        e.printStackTrace();}
+
+//---------------------------------------------------------------------------------------------------------------
+
+//CASCADE TEST
 
                 try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
                         session.beginTransaction();
 
-                        List<Player> playerList = session.createQuery("from Player where name = 'Max'").getResultList();
-                        session.createQuery("update Player set name ='bot' WHERE LENGTH(name)=4").executeUpdate();
 
+                        Match match = new Match();
+                        Player playerBobby = new Player();
+                        Player playerMargo = new Player();
+
+                        playerBobby.setName("Bobby");
+                        playerMargo.setName("Margo");
+
+                        match.setPlayerOne(playerBobby);
+                        match.setPlayerTwo(playerMargo);
+                        match.setWinner(playerMargo);
+
+                        playerBobby.setMatchesAsPlayerOne(new ArrayList<>(Collections.singleton(match)));
+                        playerMargo.setMatchesAsPlayerTwo(new ArrayList<>(Collections.singleton(match)));
+                        playerMargo.setWonMatches(new ArrayList<>(Collections.singleton(match)));
+
+                        session.persist(playerMargo);
+                        session.persist(playerBobby);
+                        //если стоит cascade = CascadeType.PERSIST , то session.persist(match) хибер сам вызовет
+
+
+
+                    List<Player> playerList = session.createQuery("from Player").getResultList();
+                    List<Match> matchList = session.createQuery("from Match ").getResultList();
+
+                    for(Player player : playerList){
+                        System.out.println(player);
+                    }
+
+                    for (Match m : matchList){
+                        System.out.println(m);
+                    }
                         session.getTransaction().commit();
-
 
                 } catch (Exception e) {
                         System.err.println("Error during testing:");
                         e.printStackTrace();}
+//-------------------------------------------------------------------------------------------------------------------------
 
 
 }
+
 }
