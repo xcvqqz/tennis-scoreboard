@@ -6,13 +6,6 @@
 <body>
 <h4>Hello World!</h4>
 
-<%@ page import="model.*" %>
-<%@ page import="org.hibernate.Session" %>
-<%@ page import="util.HibernateUtil" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="java.util.List" %>
-
 <br>
 <br>
 
