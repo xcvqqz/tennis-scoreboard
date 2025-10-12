@@ -54,6 +54,11 @@ public class MatchScoreController extends HttpServlet {
 
 
 
+        String playerOneName = ongoingMatchesService.
+        String playerTwoName;
+
+
+
 
 //        Обработчик POST запроса:
 
