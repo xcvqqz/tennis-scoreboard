@@ -70,10 +70,7 @@ public class TestMain {
 //                        Player player1 = session.find(Player.class, playerGromila);
 //                        Player player2 = session.find(Player.class, playerPooqer);
 //
-//
-//
-//
-//
+
 //                        session.getTransaction().commit();
 //
 //

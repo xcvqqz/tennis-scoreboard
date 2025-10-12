@@ -5,7 +5,7 @@
   Time: 15:12
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>New Match</title>
@@ -15,13 +15,13 @@
 
 <form action = "new-match" method="post">
 
-    <label for="playerOne">Player 1 Name:</label>
-    <input type="text" id="playerOne" name = "playerOneName" required><br>
+    <label for="playerOneName">Player 1 Name:</label>
+    <input type="text" id="playerOneName" name = "playerOneName" required><br>
 
-    <label for="playerTwo">Player 2 Name:</label>
-    <input type="text" id="playerTwo" name = "playerTwoName" required><br>
+    <label for="playerTwoName">Player 2 Name:</label>
+    <input type="text" id="playerTwoName" name = "playerTwoName" required><br>
 
-    <input type = "submit" value="Нажимай кнопку для старта матча">
+    <input type = "submit" value="СТАРТ">
 </form>
 
 
