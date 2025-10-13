@@ -10,7 +10,7 @@ import dto.PlayerDTO;
 
 public class MatchScoreCalculationService {
 
-    private MatchDTO matchDTO;
+    private final MatchDTO matchDTO;
 
     public MatchScoreCalculationService(MatchDTO matchDTO) {
         this.matchDTO = matchDTO;
@@ -36,6 +36,12 @@ public class MatchScoreCalculationService {
     private void handlePoint(PlayerDTO scoringPlayer, PlayerDTO opponent) {
 
         if (scoringPlayer.getMatchScore() == 40) {
+
+            if(isDeuce(scoringPlayer, opponent)) {
+                handleDeuceSituation(scoringPlayer, opponent);
+                return;
+            }
+
             winGame(scoringPlayer, opponent);
         } else {
             incrementMatchScore(scoringPlayer);
@@ -73,6 +79,36 @@ public class MatchScoreCalculationService {
             matchDTO.setMatchOver(true);
         }
     }
+
+    private boolean isDeuce(PlayerDTO scoringPlayer, PlayerDTO opponent){
+        return (scoringPlayer.getMatchScore() == 40 && opponent.getMatchScore() == 40);
+    }
+
+    private void handleDeuceSituation(PlayerDTO scoringPlayer, PlayerDTO opponent) {
+        if(scoringPlayer.isAdvantage()) {
+            resetAdvantage(scoringPlayer, opponent);
+            winGame(scoringPlayer, opponent);
+            return;
+        }
+        if (opponent.isAdvantage()){
+            resetAdvantage(scoringPlayer, opponent);
+            return;
+        }
+        addAdvantage(scoringPlayer, opponent);
+    }
+
+
+    private void addAdvantage(PlayerDTO scoringPlayer, PlayerDTO opponent) {
+            scoringPlayer.setAdvantage(true);
+            opponent.setAdvantage(false);
+    }
+
+    private void resetAdvantage(PlayerDTO scoringPlayer, PlayerDTO opponent){
+            scoringPlayer.setAdvantage(false);
+            opponent.setAdvantage(false);
+    }
+
+
 
 
 

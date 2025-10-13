@@ -6,6 +6,7 @@ public class PlayerDTO {
     private int matchScore;           //15-30-40-
     private int matchGame;           //1-2-3-4-5-6-7
     private int matchSet;           //1-2(Best of 3)
+    private boolean advantage;
 
 
     public PlayerDTO(String name) {
@@ -13,6 +14,7 @@ public class PlayerDTO {
         this.matchScore = 0;
         this.matchGame = 0;
         this.matchSet = 0;
+        this.advantage = false;
     }
 
 
@@ -48,4 +50,8 @@ public class PlayerDTO {
         this.matchSet = matchSet;
     }
 
+    public boolean isAdvantage() {return advantage;}
+
+    public void setAdvantage(boolean advantage) {
+        this.advantage = advantage;}
 }
