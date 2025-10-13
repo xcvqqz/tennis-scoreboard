@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.*;
+import service.MatchScoreCalculationService;
 import service.OngoingMatchesService;
 import util.UUIDUtil;
 
@@ -26,11 +27,10 @@ public class MatchScoreController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 
-        String uuid = request.getParameter("uuid");
-        request.setAttribute("uuid", uuid);
+        UUID uuid = UUID.fromString(
+                request.getParameter("uuid"));
+        MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
 
-        //получение матча по uuid
-        MatchDTO match = ongoingMatchesService.getOngoingMatch(UUID.fromString(uuid));
         request.setAttribute("match", match);
         request.getRequestDispatcher("/match-score.jsp").forward(request, response);
 
@@ -45,17 +45,25 @@ public class MatchScoreController extends HttpServlet {
 
 
 
-
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         System.out.println("Hello From MatchScoreController doPost method");
 
-        String name = request.getParameter("name");
+
+        String playerName = request.getParameter("playerName");
+
+        MatchDTO match = ongoingMatchesService.getOngoingMatch(uuidUtil.getUUID());
+
+        MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(match);
 
 
+        if(playerName.equals(match.getPlayerOne().getName())) {
+            matchScoreCalculationService.addPoint(match.getPlayerOne());
+        } else {
+            matchScoreCalculationService.addPoint(match.getPlayerTwo());
+        }
 
-        String playerOneName = ongoingMatchesService.
-        String playerTwoName;
+        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuidUtil.getUUID());
 
 
 

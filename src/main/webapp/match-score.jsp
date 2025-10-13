@@ -18,29 +18,26 @@
 <c:set var="onGoingMatch" value="${param.match}" /><br><br>
 
 
+jsp
 <p><strong>Player One:</strong> ${match.playerOne.name}</p>
-<p><strong>Score:</strong>${match.playerOne.matchScore}<br>
-<p><strong>Game:</strong>${match.playerOne.matchGame}<br>
-<p><strong>Set:</strong>${match.playerOne.matchSet}<br>
+<p><strong>Score:</strong> ${match.playerOne.matchScore}</p>
+<p><strong>Game:</strong> ${match.playerOne.matchGame}</p>
+<p><strong>Set:</strong> ${match.playerOne.matchSet}</p>
 <form action="match-score" method="post">
-    <input type="hidden" name="player" value="${match.playerOne.name}">
+    <input type="hidden" name="playerName" value="${match.playerOne.name}">
     <button type="submit">Игрок 1 выиграл очко</button>
-</form><br><br>
-
-
+</form>
+<br><br>
 
 <p><strong>Player Two:</strong> ${match.playerTwo.name}</p>
-<p><strong>Score:</strong>${match.playerTwo.matchScore}<br>
-<p><strong>Game:</strong>${match.playerTwo.matchGame}<br>
-<p><strong>Set:</strong>${match.playerTwo.matchSet}<br>
+<p><strong>Score:</strong> ${match.playerTwo.matchScore}</p>
+<p><strong>Game:</strong> ${match.playerTwo.matchGame}</p>
+<p><strong>Set:</strong> ${match.playerTwo.matchSet}</p>
 <form action="match-score" method="post">
-    <input type="hidden" name="player" value="${match.playerTwo.name}">
+    <input type="hidden" name="playerName" value="${match.playerTwo.name}">
     <button type="submit">Игрок 2 выиграл очко</button>
-</form><br><br>
-
-
-</body>
-</html>
+</form>
+<br><br>
 
 
 
