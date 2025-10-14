@@ -35,8 +35,12 @@ public class MatchScoreCalculationService {
 
     private void handlePoint(PlayerDTO scoringPlayer, PlayerDTO opponent) {
 
-        if (scoringPlayer.getMatchScore() == 40) {
+        if(matchDTO.isOpenTieBreak() || (scoringPlayer.getMatchGame() == 6 && opponent.getMatchGame() == 6)){
+            handleTieBreakSituation(scoringPlayer, opponent);
+            return;
+        }
 
+        if (scoringPlayer.getMatchScore() == 40) {
             if(isDeuce(scoringPlayer, opponent)) {
                 handleDeuceSituation(scoringPlayer, opponent);
                 return;
@@ -46,6 +50,12 @@ public class MatchScoreCalculationService {
         } else {
             incrementMatchScore(scoringPlayer);
         }
+
+
+//        if(scoringPlayer.getMatchGame() == 6 && opponent.getMatchGame() == 6) {
+//            handleTieBreakSituation(scoringPlayer, opponent);
+//            return;
+//        }
 
             checkSetWin(scoringPlayer, opponent);
             checkMatchWin(scoringPlayer, opponent);
@@ -64,6 +74,7 @@ public class MatchScoreCalculationService {
 
 
     private void checkSetWin(PlayerDTO winningPlayer, PlayerDTO losingPlayer){
+
         if(winningPlayer.getMatchGame() == 7){
             incrementMatchSet(winningPlayer);
             winningPlayer.setMatchGame(0);
@@ -110,28 +121,62 @@ public class MatchScoreCalculationService {
 
 
 
+    private void handleTieBreakSituation(PlayerDTO scoringPlayer, PlayerDTO opponent){
+
+//        нужно набрать 7 очков (tieBreakPoint) с разницей в 2 очка
+
+        // нужно написать логику, чтобы разница в очках была на 2 Больше
+        if(!matchDTO.isOpenTieBreak()){
+            matchDTO.setOpenTieBreak(true);
+            incrementTieBreakPoint(scoringPlayer);
+            return;
+        }
+
+        incrementTieBreakPoint(scoringPlayer);
+
+        if(scoringPlayer.getTieBreakPoint() >= 7 && hasTwoPointLead(scoringPlayer, opponent)) {
+                incrementMatchSet(scoringPlayer);
+                scoringPlayer.setMatchGame(0);
+                opponent.setMatchGame(0);
+                scoringPlayer.setTieBreakPoint(0);
+                opponent.setTieBreakPoint(0);
+                matchDTO.setOpenTieBreak(false);
+                checkMatchWin(scoringPlayer, opponent);
+        }
+    }
 
 
 
-        private void incrementMatchScore (PlayerDTO playerDTO){
-            switch (playerDTO.getMatchScore()) {
+
+        private boolean hasTwoPointLead(PlayerDTO scoringPlayer, PlayerDTO opponent) {
+         return Math.abs(scoringPlayer.getTieBreakPoint()- opponent.getTieBreakPoint()) >= 2;
+    }
+
+
+        private void incrementMatchScore (PlayerDTO player){
+            switch (player.getMatchScore()) {
                 case 0:
-                    playerDTO.setMatchScore(15);
+                    player.setMatchScore(15);
                     break;
                 case 15:
-                    playerDTO.setMatchScore(30);
+                    player.setMatchScore(30);
                     break;
                 case 30:
-                    playerDTO.setMatchScore(40);
+                    player.setMatchScore(40);
                     break;
             }
         }
 
-        private void incrementMatchGame (PlayerDTO playerDTO){
-            playerDTO.setMatchGame(playerDTO.getMatchGame() + 1);
+
+    private void incrementMatchGame (PlayerDTO player){
+            player.setMatchGame(player.getMatchGame() + 1);
         }
 
-        private void incrementMatchSet (PlayerDTO playerDTO){
-         playerDTO.setMatchSet(playerDTO.getMatchSet() + 1);
+        private void incrementMatchSet (PlayerDTO player){
+         player.setMatchSet(player.getMatchSet() + 1);
         }
+
+    private void incrementTieBreakPoint (PlayerDTO player){
+        player.setTieBreakPoint(player.getTieBreakPoint() + 1);
     }
+}

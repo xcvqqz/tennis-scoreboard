@@ -8,12 +8,13 @@ public class MatchDTO {
     private PlayerDTO playerTwo;
     private boolean matchOver;
     private PlayerDTO winner;
+    private boolean openTieBreak;
 
     public MatchDTO(PlayerDTO playerOne, PlayerDTO playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.matchOver = false;
-
+        this.openTieBreak = false;
     }
 
     public MatchDTO() {}
@@ -49,4 +50,8 @@ public class MatchDTO {
     public void setMatchOver(boolean matchOver) {
         this.matchOver = matchOver;
     }
+
+    public boolean isOpenTieBreak() {return openTieBreak;}
+
+    public void setOpenTieBreak(boolean openTieBreak) {this.openTieBreak = openTieBreak;}
 }

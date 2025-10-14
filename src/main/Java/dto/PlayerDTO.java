@@ -6,6 +6,7 @@ public class PlayerDTO {
     private int matchScore;           //15-30-40-
     private int matchGame;           //1-2-3-4-5-6-7
     private int matchSet;           //1-2(Best of 3)
+    private int tieBreakPoint;
     private boolean advantage;
 
 
@@ -14,6 +15,7 @@ public class PlayerDTO {
         this.matchScore = 0;
         this.matchGame = 0;
         this.matchSet = 0;
+        this.tieBreakPoint = 0;
         this.advantage = false;
     }
 
@@ -54,4 +56,12 @@ public class PlayerDTO {
 
     public void setAdvantage(boolean advantage) {
         this.advantage = advantage;}
+
+    public int getTieBreakPoint() {
+        return tieBreakPoint;
+    }
+
+    public void setTieBreakPoint(int tieBreakPoint) {
+        this.tieBreakPoint = tieBreakPoint;
+    }
 }

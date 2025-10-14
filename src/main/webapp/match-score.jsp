@@ -24,6 +24,7 @@ jsp
 <p><strong>Game:</strong> ${match.playerOne.matchGame}</p>
 <p><strong>Set:</strong> ${match.playerOne.matchSet}</p>
 <p><strong>Advantage:</strong> ${match.playerOne.advantage}</p>
+<p><strong>TieBreakPoint:</strong> ${match.playerOne.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerOne.name}">
     <button type="submit">Игрок 1 выиграл очко</button>
@@ -35,6 +36,7 @@ jsp
 <p><strong>Game:</strong> ${match.playerTwo.matchGame}</p>
 <p><strong>Set:</strong> ${match.playerTwo.matchSet}</p>
 <p><strong>Advantage:</strong> ${match.playerTwo.advantage}</p>
+<p><strong>TieBreakPoint:</strong> ${match.playerTwo.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerTwo.name}">
     <button type="submit">Игрок 2 выиграл очко</button>
