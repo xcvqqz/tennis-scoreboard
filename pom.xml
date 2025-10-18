@@ -7,6 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <name>tennis-scoreboard</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <mapstruct>1.5.5.Final</mapstruct>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -47,6 +52,13 @@
       <artifactId>HikariCP</artifactId>
       <version>7.0.0</version>
     </dependency>
+
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct}</version>
+      </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-hikaricp -->
     <dependency>
       <groupId>org.hibernate.orm</groupId>
@@ -54,7 +66,26 @@
       <version>7.0.9.Final</version>
     </dependency>
   </dependencies>
+
   <build>
-    <finalName>tennis-scoreboard</finalName>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${org.mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+
+
 </project>

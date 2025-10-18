@@ -1,39 +1,26 @@
 package controller;
 
-import dao.PlayerDAO;
 import dto.MatchDTO;
 import dto.PlayerDTO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import model.Match;
 import model.Player;
 import service.OngoingMatchesService;
 import util.UUIDUtil;
+import util.mapper.PlayerMapper;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
 @WebServlet("/new-match")
-public class NewMatchController extends HttpServlet {
-
-
-    private final OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
-    private final UUIDUtil uuidUtil = new UUIDUtil();
-
+public class NewMatchController extends BasicController {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
-
     }
-
 
 
     @Override
@@ -42,16 +29,18 @@ public class NewMatchController extends HttpServlet {
         String playerOneName = request.getParameter("playerOneName");
         String playerTwoName = request.getParameter("playerTwoName");
 
-        PlayerDTO playerOne = new PlayerDTO(playerOneName);
-        PlayerDTO playerTwo = new PlayerDTO(playerTwoName);
+        PlayerDTO playerOne = PlayerMapper.INSTANCE.toDTO(new Player(playerOneName));
+        PlayerDTO playerTwo = PlayerMapper.INSTANCE.toDTO(new Player(playerTwoName));
 
+        UUID uuid = uuidUtil.getNewUUID();
 
         MatchDTO newMatch = new MatchDTO(playerOne, playerTwo);
-        ongoingMatchesService.addNewMatch(newMatch);
 
-        request.setAttribute("uuid", uuidUtil.getUUID());
+        ongoingMatchesService.addNewOngoingMatches(newMatch, uuid);
 
-        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuidUtil.getUUID());
+        request.setAttribute("uuid", uuid);
+
+        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
 
 
 //        Проверяет существование игроков в таблице Players. Если игрока с таким именем не существует, то создаём

@@ -11,6 +11,15 @@ import dto.PlayerDTO;
 public class MatchScoreCalculationService {
 
     private final MatchDTO matchDTO;
+    private static final int FORTY_SCORE_POINTS = 40;
+    private static final int FIFTEEN_SCORE_POINTS = 15;
+    private static final int THIRTY_SCORE_POINTS = 30;
+    private static final int RESET_SCORE = 0;
+    private static final int ZERO_POINTS = 0;
+    private static final int BREAK_POINT_ADVANTAGE = 2;
+    private static final int TIEBREAK_WINNER_POINTS = 7;
+    private static final int INCREMENT_VALUE = 1;
+    private static final int TIEBREAK_SITUATION_POINTS = 6;
 
     public MatchScoreCalculationService(MatchDTO matchDTO) {
         this.matchDTO = matchDTO;
@@ -23,25 +32,25 @@ public class MatchScoreCalculationService {
             return;
         }
 
-        PlayerDTO player1 = matchDTO.getPlayerOne();
-        PlayerDTO player2 = matchDTO.getPlayerTwo();
+        PlayerDTO playerOne = matchDTO.getPlayerOne();
+        PlayerDTO playerTwo = matchDTO.getPlayerTwo();
 
-        boolean isPlayer1Scoring = getsPlayerPoint.equals(player1);
+        boolean isPlayerOneScoring = getsPlayerPoint.equals(playerOne);
 
-        handlePoint(isPlayer1Scoring ? player1 : player2,
-                    isPlayer1Scoring ? player2 : player1);
+        handlePoint(isPlayerOneScoring ? playerOne : playerTwo,
+                    isPlayerOneScoring ? playerTwo : playerOne);
     }
 
 
     private void handlePoint(PlayerDTO scoringPlayer, PlayerDTO opponent) {
 
-        if(matchDTO.isOpenTieBreak() || (scoringPlayer.getMatchGame() == 6 && opponent.getMatchGame() == 6)){
+        if(matchDTO.isOpenTieBreak() || isTieBreakSituation(scoringPlayer, opponent)) {
             handleTieBreakSituation(scoringPlayer, opponent);
             return;
         }
 
-        if (scoringPlayer.getMatchScore() == 40) {
-            if(isDeuce(scoringPlayer, opponent)) {
+        if (scoringPlayer.getMatchScore() == FORTY_SCORE_POINTS) {
+            if(isDeuceSituation(scoringPlayer, opponent)) {
                 handleDeuceSituation(scoringPlayer, opponent);
                 return;
             }
@@ -52,47 +61,37 @@ public class MatchScoreCalculationService {
         }
 
 
-//        if(scoringPlayer.getMatchGame() == 6 && opponent.getMatchGame() == 6) {
-//            handleTieBreakSituation(scoringPlayer, opponent);
-//            return;
-//        }
-
             checkSetWin(scoringPlayer, opponent);
             checkMatchWin(scoringPlayer, opponent);
     }
 
 
     private void winGame(PlayerDTO winningPlayer, PlayerDTO losingPlayer) {
-        // Сбрасываем счет очков и преимущество
-        winningPlayer.setMatchScore(0);
-        losingPlayer.setMatchScore(0);
-
-        // Увеличиваем счет геймов
+        winningPlayer.setMatchScore(RESET_SCORE);
+        losingPlayer.setMatchScore(RESET_SCORE);
         incrementMatchGame(winningPlayer);
-
     }
 
 
     private void checkSetWin(PlayerDTO winningPlayer, PlayerDTO losingPlayer){
-
         if(winningPlayer.getMatchGame() == 7){
             incrementMatchSet(winningPlayer);
-            winningPlayer.setMatchGame(0);
-            losingPlayer.setMatchGame(0);
+            winningPlayer.setMatchGame(RESET_SCORE);
+            losingPlayer.setMatchGame(RESET_SCORE);
         }
     }
 
 
     private void checkMatchWin(PlayerDTO winningPlayer, PlayerDTO losingPlayer){
         if(winningPlayer.getMatchSet() == 2){
-            winningPlayer.setMatchSet(0);
-            losingPlayer.setMatchSet(0);
+            winningPlayer.setMatchSet(RESET_SCORE);
+            losingPlayer.setMatchSet(RESET_SCORE);
             matchDTO.setMatchOver(true);
         }
     }
 
-    private boolean isDeuce(PlayerDTO scoringPlayer, PlayerDTO opponent){
-        return (scoringPlayer.getMatchScore() == 40 && opponent.getMatchScore() == 40);
+    private boolean isDeuceSituation(PlayerDTO scoringPlayer, PlayerDTO opponent){
+        return (scoringPlayer.getMatchScore() == FORTY_SCORE_POINTS && opponent.getMatchScore() == FORTY_SCORE_POINTS);
     }
 
     private void handleDeuceSituation(PlayerDTO scoringPlayer, PlayerDTO opponent) {
@@ -119,13 +118,13 @@ public class MatchScoreCalculationService {
             opponent.setAdvantage(false);
     }
 
+    private boolean isTieBreakSituation(PlayerDTO scoringPlayer, PlayerDTO opponent) {
+        return scoringPlayer.getMatchGame() == TIEBREAK_SITUATION_POINTS && opponent.getMatchGame() == TIEBREAK_SITUATION_POINTS;
+    }
 
 
     private void handleTieBreakSituation(PlayerDTO scoringPlayer, PlayerDTO opponent){
 
-//        нужно набрать 7 очков (tieBreakPoint) с разницей в 2 очка
-
-        // нужно написать логику, чтобы разница в очках была на 2 Больше
         if(!matchDTO.isOpenTieBreak()){
             matchDTO.setOpenTieBreak(true);
             incrementTieBreakPoint(scoringPlayer);
@@ -134,12 +133,12 @@ public class MatchScoreCalculationService {
 
         incrementTieBreakPoint(scoringPlayer);
 
-        if(scoringPlayer.getTieBreakPoint() >= 7 && hasTwoPointLead(scoringPlayer, opponent)) {
+        if(scoringPlayer.getTieBreakPoint() >= TIEBREAK_WINNER_POINTS && hasTwoPointLead(scoringPlayer, opponent)) {
                 incrementMatchSet(scoringPlayer);
-                scoringPlayer.setMatchGame(0);
-                opponent.setMatchGame(0);
-                scoringPlayer.setTieBreakPoint(0);
-                opponent.setTieBreakPoint(0);
+                scoringPlayer.setMatchGame(RESET_SCORE);
+                opponent.setMatchGame(RESET_SCORE);
+                scoringPlayer.setTieBreakPoint(RESET_SCORE);
+                opponent.setTieBreakPoint(RESET_SCORE);
                 matchDTO.setOpenTieBreak(false);
                 checkMatchWin(scoringPlayer, opponent);
         }
@@ -147,36 +146,35 @@ public class MatchScoreCalculationService {
 
 
 
-
         private boolean hasTwoPointLead(PlayerDTO scoringPlayer, PlayerDTO opponent) {
-         return Math.abs(scoringPlayer.getTieBreakPoint()- opponent.getTieBreakPoint()) >= 2;
+         return Math.abs(scoringPlayer.getTieBreakPoint() - opponent.getTieBreakPoint()) >= BREAK_POINT_ADVANTAGE;
     }
 
 
         private void incrementMatchScore (PlayerDTO player){
             switch (player.getMatchScore()) {
-                case 0:
-                    player.setMatchScore(15);
+                case ZERO_POINTS:
+                    player.setMatchScore(FIFTEEN_SCORE_POINTS);
                     break;
-                case 15:
-                    player.setMatchScore(30);
+                case FIFTEEN_SCORE_POINTS:
+                    player.setMatchScore(THIRTY_SCORE_POINTS);
                     break;
-                case 30:
-                    player.setMatchScore(40);
+                case THIRTY_SCORE_POINTS:
+                    player.setMatchScore(FORTY_SCORE_POINTS);
                     break;
             }
         }
 
 
     private void incrementMatchGame (PlayerDTO player){
-            player.setMatchGame(player.getMatchGame() + 1);
+            player.setMatchGame(player.getMatchGame() + INCREMENT_VALUE);
         }
 
         private void incrementMatchSet (PlayerDTO player){
-         player.setMatchSet(player.getMatchSet() + 1);
+         player.setMatchSet(player.getMatchSet() + INCREMENT_VALUE);
         }
 
     private void incrementTieBreakPoint (PlayerDTO player){
-        player.setTieBreakPoint(player.getTieBreakPoint() + 1);
+        player.setTieBreakPoint(player.getTieBreakPoint() + INCREMENT_VALUE);
     }
 }

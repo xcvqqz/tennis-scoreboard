@@ -14,8 +14,7 @@
 <body>
 
 <%--<c:set var="uuidParam" value="${param.uuid}" />--%>
-
-<c:set var="onGoingMatch" value="${param.match}" /><br><br>
+<%--<c:set var="onGoingMatch" value="${param.match}" /><br><br>--%>
 
 
 jsp
@@ -27,6 +26,7 @@ jsp
 <p><strong>TieBreakPoint:</strong> ${match.playerOne.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerOne.name}">
+    <input type="hidden" name="uuid" value="${param.uuid}">
     <button type="submit">Игрок 1 выиграл очко</button>
 </form>
 <br><br>
@@ -39,10 +39,11 @@ jsp
 <p><strong>TieBreakPoint:</strong> ${match.playerTwo.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerTwo.name}">
+    <input type="hidden" name="uuid" value="${param.uuid}">
     <button type="submit">Игрок 2 выиграл очко</button>
 </form>
 <br><br>
-
+</body>
 
 
 <%--<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>--%>
