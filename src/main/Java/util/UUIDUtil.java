@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class UUIDUtil {
 
-
     public UUIDUtil() {}
 
     public UUID getNewUUID() {
