@@ -23,6 +23,8 @@ public class TestMain {
 
 
 
+            /*получение всех Player в лист*/
+
 //        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 //
 //                session.beginTransaction();
@@ -41,6 +43,7 @@ public class TestMain {
 //------------------------------------------------------------------------------------------------------------------------
 
 
+            /*создание и сохранение двух Player*/
 //                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 //
 //                        session.beginTransaction();

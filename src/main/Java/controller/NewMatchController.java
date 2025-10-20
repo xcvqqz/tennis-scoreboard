@@ -29,8 +29,8 @@ public class NewMatchController extends BasicController {
         String playerOneName = request.getParameter("playerOneName");
         String playerTwoName = request.getParameter("playerTwoName");
 
-        PlayerDTO playerOne = PlayerMapper.INSTANCE.toDTO(new Player(playerOneName));
-        PlayerDTO playerTwo = PlayerMapper.INSTANCE.toDTO(new Player(playerTwoName));
+        PlayerDTO playerOne = PlayerMapper.INSTANCE.toDTO(playerService.createPlayerIfNotExists(playerOneName));
+        PlayerDTO playerTwo = PlayerMapper.INSTANCE.toDTO(playerService.createPlayerIfNotExists(playerTwoName));
 
         UUID uuid = uuidUtil.getNewUUID();
 

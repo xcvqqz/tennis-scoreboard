@@ -6,6 +6,7 @@ import util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PlayerDAO {
 
@@ -26,6 +27,18 @@ public class PlayerDAO {
     }
      return player;
 }
+
+
+    public Optional<Player> findByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Player player = session.createQuery("FROM Player WHERE name = :name", Player.class)
+                    .setParameter("name", name)
+                    .uniqueResult();
+            return Optional.ofNullable(player);
+        }
+    }
+
+
 
     public void save(Player player){
     try(Session session = HibernateUtil.getSessionFactory().openSession()){

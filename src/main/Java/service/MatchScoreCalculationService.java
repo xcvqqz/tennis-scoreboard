@@ -28,6 +28,8 @@ public class MatchScoreCalculationService {
 
     public void addPoint(PlayerDTO getsPlayerPoint) {
         if (matchDTO.isMatchOver()) {
+            matchDTO.setWinner(getsPlayerPoint);
+
             System.out.println("КОНЕЦ ИГРЫ. ПОБЕДИЛ ИГРОК " + getsPlayerPoint.getName());
             return;
         }
@@ -87,6 +89,7 @@ public class MatchScoreCalculationService {
             winningPlayer.setMatchSet(RESET_SCORE);
             losingPlayer.setMatchSet(RESET_SCORE);
             matchDTO.setMatchOver(true);
+            matchDTO.setWinner(winningPlayer);
         }
     }
 
