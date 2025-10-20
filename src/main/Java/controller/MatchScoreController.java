@@ -60,7 +60,7 @@ public class MatchScoreController extends BasicController {
 
         if(match.isMatchOver()){
             finishedMatchesPersistenceService.save(match);
-            ongoingMatchesService.deleteOngoingMatches();
+            ongoingMatchesService.deleteOngoingMatch(match);
         }
 
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);

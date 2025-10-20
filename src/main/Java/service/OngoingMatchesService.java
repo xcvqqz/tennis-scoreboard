@@ -26,8 +26,8 @@ public class OngoingMatchesService {
         return ongoingMatches;
     }
 
-    public void deleteOngoingMatches(){
-        ongoingMatches.clear();
+    public void deleteOngoingMatch(MatchDTO match){
+        ongoingMatches.remove(match);
     }
 
     public MatchDTO getOngoingMatch(UUID uuid) {
