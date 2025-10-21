@@ -10,7 +10,7 @@
 <br>
 
 <a href="new-match">New Match Page</a>
-<a href="match-score">Match Score Page</a>
+<a href="matches">All Matches Page</a>
 
 
 </body>
