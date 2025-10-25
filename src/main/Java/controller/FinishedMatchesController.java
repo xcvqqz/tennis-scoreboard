@@ -1,14 +1,14 @@
 package controller;
 
-import dto.MatchDTO;
+import dto.PaginationResponseDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.MatchScoreCalculationService;
+import model.Match;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.List;
 
 
 //сначала переходим на первую страницу matches (ловим через фильтр)
@@ -19,14 +19,27 @@ import java.util.UUID;
 
 
 @WebServlet("/matches")
-public class MatchesController extends BasicController {
+public class FinishedMatchesController extends BasicController {
+
+
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String page = request.getParameter("page");
-        String filterByPlayerName = request.getParameter("filter_by_player_name");
+        int page = Integer.parseInt(request.getParameter("page"));                  //currentPage
+        String playerName = request.getParameter("filter_by_player_name");
 
+        List<Match> matches;
+
+
+        if (playerName == null || playerName.trim().isEmpty()) {
+            //Если параметр не задан, отображаются все матчи
+
+            matches = matchService.findAllMatches();
+        }
+
+
+        PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 
 
     }

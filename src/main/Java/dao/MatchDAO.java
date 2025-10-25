@@ -3,6 +3,7 @@ package dao;
 import model.Match;
 import model.Player;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import util.HibernateUtil;
 
 import java.util.List;
@@ -46,6 +47,61 @@ public class MatchDAO {
             session.getTransaction().commit();
         }
     }
+
+
+
+    //сколько всего матчей завершённых
+    public Long countFinishedMatches(String playerName, int offset, int limit) {
+
+        StringBuilder sb = new StringBuilder("SELECT COUNT(m) FROM Match m");
+
+        if (playerName == null || playerName.trim().isEmpty()) {
+            sb.append(" WHERE m.playerOne LIKE :playerName OR m.playerTwo LIKE :playerName");
+        }
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Long> query = session.createQuery(sb.toString(), Long.class);
+
+            if (playerName == null || playerName.trim().isEmpty()) {
+                query.setParameter("playerName", playerName);
+            }
+            return query.
+                    setFirstResult(offset).
+                    setMaxResults(limit).
+                    getSingleResult();
+        }
+    }
+
+
+        //найти список всех матчей
+
+        public List<Match> findFinishedMatches(String playerName, int offset, int limit){
+
+            StringBuilder hql = new StringBuilder("FROM Match");
+
+            if (playerName == null || playerName.trim().isEmpty()) {
+                hql.append(" m WHERE m.playerOne LIKE :playerName OR  m.playerTwo LIKE :playerName");
+            }
+
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                Query<Match> query = session.createQuery(hql.toString(), Match.class);
+
+                if (playerName == null || playerName.trim().isEmpty()) {
+                    query.setParameter("playerName", playerName);
+                }
+
+                return query.
+                        setFirstResult(offset).
+                        setMaxResults(limit).
+                        list();
+            }
+
+    }
+
+
+
+
+
 
     public void delete(int id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){

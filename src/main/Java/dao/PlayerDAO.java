@@ -47,6 +47,19 @@ public class PlayerDAO {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void update(int updatePlayer, Player updatedPlayer){
     try(Session session = HibernateUtil.getSessionFactory().openSession()){
 
