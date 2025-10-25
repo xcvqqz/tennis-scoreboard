@@ -26,22 +26,15 @@ public class FinishedMatchesController extends BasicController {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        int page = Integer.parseInt(request.getParameter("page"));                  //currentPage
+        Long page = Long.parseLong(request.getParameter("page"));                  //currentPage
         String playerName = request.getParameter("filter_by_player_name");
-
-        List<Match> matches;
-
-
-        if (playerName == null || playerName.trim().isEmpty()) {
-            //Если параметр не задан, отображаются все матчи
-
-            matches = matchService.findAllMatches();
-        }
-
 
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 
-
+        request.setAttribute("page", page);
+        request.setAttribute("playerName", playerName);
+        request.setAttribute("matches", paginationResponseDTO.getMatches());
+        request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
     }
 
 
