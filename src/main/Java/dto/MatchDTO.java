@@ -19,6 +19,7 @@ public class MatchDTO {
 
     public MatchDTO() {}
 
+
     public PlayerDTO getPlayerOne() {
         return playerOne;
     }

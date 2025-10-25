@@ -10,13 +10,11 @@ public class PaginationResponseDTO {
 
     private Long totalPage;
 
-    private Long currentPage;
 
 
-    public PaginationResponseDTO(List<Match> matches, Long totalPage, Long firstPage) {
+    public PaginationResponseDTO(List<Match> matches, Long totalPage) {
         this.matches = matches;
         this.totalPage = totalPage;
-        this.currentPage = firstPage;
     }
 
 
@@ -36,11 +34,4 @@ public class PaginationResponseDTO {
         this.totalPage= totalPage;
     }
 
-    public Long getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Long currentPage) {
-        this.currentPage = currentPage;
-    }
 }

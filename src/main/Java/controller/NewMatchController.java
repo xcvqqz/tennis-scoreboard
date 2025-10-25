@@ -5,9 +5,6 @@ import dto.PlayerDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import model.Player;
-import service.OngoingMatchesService;
-import util.UUIDUtil;
 import util.mapper.PlayerMapper;
 
 import java.io.IOException;

@@ -61,8 +61,7 @@ public class FinishedMatchesPersistenceService {
 
         return new PaginationResponseDTO(
                 matches,
-                totalPages,
-                currentPage
+                totalPages
         );
 
     }

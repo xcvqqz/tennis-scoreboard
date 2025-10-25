@@ -13,11 +13,25 @@ public interface PlayerMapper {
 
     PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
+//
+//    @Mapping(source = "name", target = "name")
+//    Player toEntity(PlayerDTO playerDTO);
+//
+//    @Mapping(source = "name", target = "name")
+//    PlayerDTO toDTO(Player player);
+//
 
-    @Mapping(source = "name", target = "name")
+
+    @Mapping(target = "id", ignore = true)                    // игнорируем id
+    @Mapping(target = "matchesAsPlayerOne", ignore = true)    // игнорируем списки матчей
+    @Mapping(target = "matchesAsPlayerTwo", ignore = true)
+    @Mapping(target = "wonMatches", ignore = true)
+    @Mapping(source = "name", target = "name")               // маппим только name
     Player toEntity(PlayerDTO playerDTO);
 
-    @Mapping(source = "name", target = "name")
+    // Маппинг из Entity в DTO
+    @Mapping(target = "matchScoreDTO", ignore = true)        // игнорируем matchScoreDTO
+    @Mapping(source = "name", target = "name")               // маппим только name
     PlayerDTO toDTO(Player player);
 
 }

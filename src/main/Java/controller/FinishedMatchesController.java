@@ -22,11 +22,10 @@ import java.util.List;
 public class FinishedMatchesController extends BasicController {
 
 
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        Long page = Long.parseLong(request.getParameter("page"));                  //currentPage
+        Long page = Long.parseLong(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
 
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
@@ -35,6 +34,8 @@ public class FinishedMatchesController extends BasicController {
         request.setAttribute("playerName", playerName);
         request.setAttribute("matches", paginationResponseDTO.getMatches());
         request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
+
+        request.getRequestDispatcher("/matches.jsp").forward(request, response);
     }
 
 
