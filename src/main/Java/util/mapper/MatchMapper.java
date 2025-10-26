@@ -14,10 +14,15 @@ public interface MatchMapper {
     @Mapping(source = "playerOne", target = "playerOne")
     @Mapping(source = "playerTwo", target = "playerTwo")
     @Mapping(source = "winner", target = "winner")
+    @Mapping(target = "matchOver", ignore = true)
+    @Mapping(target = "openTieBreak", ignore = true)
     Match toEntity(MatchDTO matchDTO);
+
 
     @Mapping(source = "playerOne", target = "playerOne")
     @Mapping(source = "playerTwo", target = "playerTwo")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "winner", ignore = true)
     MatchDTO toDTO(Match match);
 
 }

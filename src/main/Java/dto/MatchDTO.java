@@ -17,8 +17,10 @@ public class MatchDTO {
         this.openTieBreak = false;
     }
 
-    public MatchDTO() {}
-
+    public MatchDTO() {
+        this.matchOver = false;
+        this.openTieBreak = false;
+    }
 
     public PlayerDTO getPlayerOne() {
         return playerOne;

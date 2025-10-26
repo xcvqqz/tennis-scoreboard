@@ -20,4 +20,15 @@ public class PlayerService {
                    return newPlayer;
                });
    }
+
+
+//    public Player createPlayerIfNotExists(String name) {
+//        if(name!=null || !name.isEmpty()){
+//            return playerDAO.findByName(name);
+//        } else {
+//            Player newPlayer = new Player(name);
+//            playerDAO.save(newPlayer);
+//            return newPlayer;
+//        }
+//    }
 }

@@ -42,6 +42,7 @@ public class PlayerDAO {
 
     public void save(Player player){
     try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
             session.persist(player);
             session.getTransaction().commit();
         }

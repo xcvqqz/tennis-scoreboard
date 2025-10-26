@@ -18,7 +18,7 @@ public class OngoingMatchesService {
     public OngoingMatchesService() {}
 
 
-    public void addNewOngoingMatches(MatchDTO matchDTO, UUID uuid) {
+    public void addNewOngoingMatches(UUID uuid, MatchDTO matchDTO) {
         ongoingMatches.put(uuid, matchDTO);
     }
 

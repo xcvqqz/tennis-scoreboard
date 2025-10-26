@@ -31,9 +31,10 @@ public class NewMatchController extends BasicController {
 
         UUID uuid = uuidUtil.getNewUUID();
 
+        
         MatchDTO newMatch = new MatchDTO(playerOne, playerTwo);
 
-        ongoingMatchesService.addNewOngoingMatches(newMatch, uuid);
+        ongoingMatchesService.addNewOngoingMatches(uuid, newMatch);
 
         request.setAttribute("uuid", uuid);
 

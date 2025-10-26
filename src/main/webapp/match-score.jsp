@@ -19,11 +19,11 @@
 
 jsp
 <p><strong>Player One:</strong> ${match.playerOne.name}</p>
-<p><strong>Score:</strong> ${match.playerOne.matchScore}</p>
-<p><strong>Game:</strong> ${match.playerOne.matchGame}</p>
-<p><strong>Set:</strong> ${match.playerOne.matchSet}</p>
-<p><strong>Advantage:</strong> ${match.playerOne.advantage}</p>
-<p><strong>TieBreakPoint:</strong> ${match.playerOne.tieBreakPoint}</p>
+<p><strong>Score:</strong> ${match.playerOne.matchScoreDTO.matchScore}</p>
+<p><strong>Game:</strong> ${match.playerOne.matchScoreDTO.matchGame}</p>
+<p><strong>Set:</strong> ${match.playerOne.matchScoreDTO.matchSet}</p>
+<p><strong>Advantage:</strong> ${match.playerOne.matchScoreDTO.advantage}</p>
+<p><strong>TieBreakPoint:</strong> ${match.playerOne.matchScoreDTO.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerOne.name}">
     <input type="hidden" name="uuid" value="${param.uuid}">
@@ -32,11 +32,11 @@ jsp
 <br><br>
 
 <p><strong>Player Two:</strong> ${match.playerTwo.name}</p>
-<p><strong>Score:</strong> ${match.playerTwo.matchScore}</p>
-<p><strong>Game:</strong> ${match.playerTwo.matchGame}</p>
-<p><strong>Set:</strong> ${match.playerTwo.matchSet}</p>
-<p><strong>Advantage:</strong> ${match.playerTwo.advantage}</p>
-<p><strong>TieBreakPoint:</strong> ${match.playerTwo.tieBreakPoint}</p>
+<p><strong>Score:</strong> ${match.playerTwo.matchScoreDTO.matchScore}</p>
+<p><strong>Game:</strong> ${match.playerTwo.matchScoreDTO.matchGame}</p>
+<p><strong>Set:</strong> ${match.playerTwo.matchScoreDTO.matchSet}</p>
+<p><strong>Advantage:</strong> ${match.playerTwo.matchScoreDTO.advantage}</p>
+<p><strong>TieBreakPoint:</strong> ${match.playerTwo.matchScoreDTO.tieBreakPoint}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerTwo.name}">
     <input type="hidden" name="uuid" value="${param.uuid}">

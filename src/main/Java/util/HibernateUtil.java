@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import java.util.Optional;
 import java.util.Properties;
 
 public class HibernateUtil {
@@ -29,8 +31,9 @@ public class HibernateUtil {
 
                 configuration.setProperties(hibernateProperties);
 
-                configuration.addAnnotatedClass(Player.class);
-                configuration.addAnnotatedClass(Match.class);
+                configuration.addAnnotatedClass(Player.class)
+                        .addAnnotatedClass(Match.class)
+                        .addAnnotatedClass(Optional.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

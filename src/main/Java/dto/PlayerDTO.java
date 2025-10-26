@@ -10,7 +10,9 @@ public class PlayerDTO {
         this.matchScoreDTO = new MatchScoreDTO();
     }
 
-    public PlayerDTO() {}
+    public PlayerDTO() {
+        this.matchScoreDTO = new MatchScoreDTO();
+    }
 
     public String getName() {
         return name;
