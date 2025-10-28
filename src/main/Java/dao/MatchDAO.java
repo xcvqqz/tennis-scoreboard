@@ -55,14 +55,14 @@ public class MatchDAO {
 
         StringBuilder sb = new StringBuilder("SELECT COUNT(m) FROM Match m");
 
-        if (playerName == null || playerName.trim().isEmpty()) {
-            sb.append(" WHERE m.playerOne LIKE :playerName OR m.playerTwo LIKE :playerName");
+        if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
+            sb.append(" WHERE m.playerOne.name LIKE :playerName OR m.playerTwo.name LIKE :playerName");
         }
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Long> query = session.createQuery(sb.toString(), Long.class);
 
-            if (playerName == null || playerName.trim().isEmpty()) {
+            if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
                 query.setParameter("playerName", playerName);
             }
             return query.
@@ -79,14 +79,14 @@ public class MatchDAO {
 
             StringBuilder hql = new StringBuilder("FROM Match");
 
-            if (playerName == null || playerName.trim().isEmpty()) {
-                hql.append(" m WHERE m.playerOne LIKE :playerName OR  m.playerTwo LIKE :playerName");
+            if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
+                hql.append(" m WHERE m.playerOne.name LIKE :playerName OR  m.playerTwo.name LIKE :playerName");
             }
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 Query<Match> query = session.createQuery(hql.toString(), Match.class);
 
-                if (playerName == null || playerName.trim().isEmpty()) {
+                if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
                     query.setParameter("playerName", playerName);
                 }
 

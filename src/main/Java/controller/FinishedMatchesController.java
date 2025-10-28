@@ -33,6 +33,7 @@ public class FinishedMatchesController extends BasicController {
         request.setAttribute("page", page);
         request.setAttribute("playerName", playerName);
         request.setAttribute("matches", paginationResponseDTO.getMatches());
+        System.out.println("Found matches: " + paginationResponseDTO.getMatches().size());
         request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
 
         request.getRequestDispatcher("/matches.jsp").forward(request, response);
