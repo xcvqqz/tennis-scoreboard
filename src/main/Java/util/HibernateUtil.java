@@ -29,16 +29,16 @@ public class HibernateUtil {
                 hibernateProperties.load(HibernateUtil.class.getClassLoader().
                         getResourceAsStream(HIBERNATE_CONFIGURATION_PATH));
 
-                configuration.setProperties(hibernateProperties);
-
-                configuration.addAnnotatedClass(Player.class)
-                        .addAnnotatedClass(Match.class)
-                        .addAnnotatedClass(Optional.class);
-
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
 
-                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+                sessionFactory = configuration
+                        .setProperties(hibernateProperties)
+                        .addAnnotatedClass(Player.class)
+                        .addAnnotatedClass(Match.class)
+                        .addAnnotatedClass(Optional.class)
+                        .buildSessionFactory(serviceRegistry);
+
                 initDatabase();
 
             } catch (Exception e) {

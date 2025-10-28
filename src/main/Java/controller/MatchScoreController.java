@@ -57,7 +57,6 @@ public class MatchScoreController extends BasicController {
         MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(match);
 
 
-        //тут ОШИБКА
         boolean isPlayerOne = playerName.equals(match.getPlayerOne().getName());
         matchScoreCalculationService.addPoint(isPlayerOne ? match.getPlayerOne() : match.getPlayerTwo());
 

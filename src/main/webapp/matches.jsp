@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ваня
@@ -13,7 +14,24 @@
 <body>
 
 
-<form action="matches" method="get"
+<form action="matches" method="get">
+<label for="filter_by_player_name">Фильтрация по имени игрока</label>
+    <input type="text" id="filter_by_player_name" name="filter_by_player_name" required>
+</form>
+
+
+<c:if test="${not empty matches}">
+
+    <c:forEach items="${matches}" var="match">
+        ${match.getPlayerOne()} | ${match.getPlayerTwo()} | ${match.getWinner()}
+    </c:forEach>
+
+</c:if>
+
+
+
+
+
 
 
 
