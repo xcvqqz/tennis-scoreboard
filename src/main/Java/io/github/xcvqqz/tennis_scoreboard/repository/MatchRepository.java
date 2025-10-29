@@ -1,4 +1,4 @@
-package io.github.xcvqqz.tennis_scoreboard.dao;
+package io.github.xcvqqz.tennis_scoreboard.repository;
 
 import io.github.xcvqqz.tennis_scoreboard.model.Match;
 import org.hibernate.Session;
@@ -7,7 +7,7 @@ import io.github.xcvqqz.tennis_scoreboard.util.HibernateUtil;
 
 import java.util.List;
 
-public class MatchDAO {
+public class MatchRepository {
 
     public List<Match> findAll(){
         List<Match> allMatches;

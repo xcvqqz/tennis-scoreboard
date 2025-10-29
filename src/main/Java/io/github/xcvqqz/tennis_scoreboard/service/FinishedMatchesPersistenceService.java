@@ -4,8 +4,8 @@ package io.github.xcvqqz.tennis_scoreboard.service;
 
 //инкапсулирует чтение и запись законченных матчей в БД
 
-import io.github.xcvqqz.tennis_scoreboard.dao.MatchDAO;
-import io.github.xcvqqz.tennis_scoreboard.dao.PlayerDAO;
+import io.github.xcvqqz.tennis_scoreboard.repository.MatchRepository;
+import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PaginationResponseDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Match;
@@ -16,8 +16,8 @@ import java.util.List;
 
 public class FinishedMatchesPersistenceService {
 
-    private final MatchDAO matchDAO = new MatchDAO();
-    private final PlayerDAO playerDAO = new PlayerDAO();
+    private final MatchRepository matchRepository = new MatchRepository();
+    private final PlayerRepository playerRepository = new PlayerRepository();
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -28,12 +28,12 @@ public class FinishedMatchesPersistenceService {
         Player playerTwo = PlayerMapper.INSTANCE.toEntity(match.getPlayerTwo());
         Player winner = PlayerMapper.INSTANCE.toEntity(match.getWinner());
         Match endedMatch = new Match(playerOne, playerTwo, winner);
-        matchDAO.save(endedMatch);
+        matchRepository.save(endedMatch);
     }
 
 
     public List<Match> findAllMatches(){
-        return matchDAO.findAll();
+        return matchRepository.findAll();
     }
 
 
@@ -52,12 +52,12 @@ public class FinishedMatchesPersistenceService {
         int offset = (int) (currentPage - 1) * DEFAULT_PAGE_SIZE;
 
         // 2. Получаем общее количество матчей по фильтру
-        Long totalMatches = matchDAO.countFinishedMatches(playerName, offset, pageSize);
+        Long totalMatches = matchRepository.countFinishedMatches(playerName, offset, pageSize);
 
         // 3. Вычисляем общее количество страниц
         Long totalPages = (long) Math.ceil((double) totalMatches / DEFAULT_PAGE_SIZE);
 
-        List<Match> matches =  matchDAO.findFinishedMatches(playerName,  offset, pageSize);
+        List<Match> matches =  matchRepository.findFinishedMatches(playerName,  offset, pageSize);
 
         return new PaginationResponseDTO(
                 matches,

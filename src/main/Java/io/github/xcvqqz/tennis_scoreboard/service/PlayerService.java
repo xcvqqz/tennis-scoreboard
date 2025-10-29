@@ -1,25 +1,28 @@
 package io.github.xcvqqz.tennis_scoreboard.service;
 
 
-import io.github.xcvqqz.tennis_scoreboard.dao.PlayerDAO;
+import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
 
 public class PlayerService {
-    private PlayerDAO playerDAO;
+    private PlayerRepository playerRepository;
 
     public PlayerService(){
-        this.playerDAO = new PlayerDAO();
+        this.playerRepository = new PlayerRepository();
     }
 
 
    public Player createPlayerIfNotExists(String name) {
-       return playerDAO.findByName(name)
+
+       return playerRepository.findByName(name)
                .orElseGet(() -> {
                    Player newPlayer = new Player(name);
-                   playerDAO.save(newPlayer);
+                   playerRepository.save(newPlayer);
                    return newPlayer;
                });
    }
+
+
 
 
 }
