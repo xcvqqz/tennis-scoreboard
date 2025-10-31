@@ -28,7 +28,7 @@ public class ExceptionHandlingFilter extends HttpFilter {
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, Exception e, int status) throws IOException, ServletException {
         response.setStatus(status);
-        request.setAttribute("message", e.getMessage());
+        request.setAttribute("errorMessage", e.getMessage());
         request.setAttribute("statusCode", status);
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
     }
