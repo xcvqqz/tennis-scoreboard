@@ -3,6 +3,7 @@ package io.github.xcvqqz.tennis_scoreboard.filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 
 @WebFilter("/matches")
-public class MatchesParamFilter {
+public class MatchesParamFilter extends HttpFilter {
 
 
     @Override
