@@ -1,6 +1,7 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
 import io.github.xcvqqz.tennis_scoreboard.dto.PaginationResponseDTO;
+import io.github.xcvqqz.tennis_scoreboard.util.Validator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,12 +27,15 @@ public class FinishedMatchesController extends BasicController {
         Long page = Long.parseLong(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
 
+        Validator.validate(playerName);
+
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
+
+        Validator.validate(page, paginationResponseDTO.getTotalPage());
 
         request.setAttribute("page", page);
         request.setAttribute("playerName", playerName);
         request.setAttribute("matches", paginationResponseDTO.getMatches());
-        System.out.println("Found matches: " + paginationResponseDTO.getMatches().size());
         request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
 
         request.getRequestDispatcher("/matches.jsp").forward(request, response);
@@ -40,7 +44,6 @@ public class FinishedMatchesController extends BasicController {
 
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
 
     }
 

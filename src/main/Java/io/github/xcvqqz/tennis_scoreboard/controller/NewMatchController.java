@@ -3,6 +3,7 @@ package io.github.xcvqqz.tennis_scoreboard.controller;
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
+import io.github.xcvqqz.tennis_scoreboard.util.Validator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -27,11 +28,14 @@ public class NewMatchController extends BasicController {
         String playerOneName = request.getParameter("playerOneName");
         String playerTwoName = request.getParameter("playerTwoName");
 
+        Validator.validate(playerOneName);
+        Validator.validate(playerTwoName);
+
         Player onePlayerEntity = playerService.createPlayerIfNotExists(playerOneName);
         Player twoPlayerEntity = playerService.createPlayerIfNotExists(playerTwoName);
 
-        PlayerDTO onePlayerDTO = PlayerMapper.INSTANCE.toDTO(onePlayerEntity);
-        PlayerDTO twoPlayerDTO = PlayerMapper.INSTANCE.toDTO(twoPlayerEntity);
+        PlayerDTO onePlayerDTO = playerMapper.toDTO(onePlayerEntity);
+        PlayerDTO twoPlayerDTO = playerMapper.toDTO(twoPlayerEntity);
 
         MatchDTO newMatch = new MatchDTO(onePlayerDTO, twoPlayerDTO);
 

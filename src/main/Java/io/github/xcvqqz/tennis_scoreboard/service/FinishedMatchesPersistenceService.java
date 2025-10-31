@@ -59,10 +59,7 @@ public class FinishedMatchesPersistenceService {
 
         List<Match> matches =  matchRepository.findFinishedMatches(playerName,  offset, pageSize);
 
-        return new PaginationResponseDTO(
-                matches,
-                totalPages
-        );
+        return new PaginationResponseDTO(matches, totalPages);
 
     }
 
