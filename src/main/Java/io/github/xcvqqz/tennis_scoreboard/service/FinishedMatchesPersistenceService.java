@@ -23,12 +23,13 @@ public class FinishedMatchesPersistenceService {
 
     public FinishedMatchesPersistenceService() {}
 
+
     public void save(MatchDTO match) {
         Player playerOne = PlayerMapper.INSTANCE.toEntity(match.getPlayerOne());
         Player playerTwo = PlayerMapper.INSTANCE.toEntity(match.getPlayerTwo());
         Player winner = PlayerMapper.INSTANCE.toEntity(match.getWinner());
-        Match endedMatch = new Match(playerOne, playerTwo, winner);
-        matchRepository.save(endedMatch);
+        Match finishedMatch = new Match(playerOne, playerTwo, winner);
+        matchRepository.save(finishedMatch);
     }
 
 

@@ -1,7 +1,6 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
 
-
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +19,6 @@ public class MatchScoreController extends BasicController {
 
 
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
-
 
         MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
 
@@ -49,7 +47,6 @@ public class MatchScoreController extends BasicController {
 
         MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(match);
 
-
         boolean isPlayerOne = playerName.equals(match.getPlayerOne().getName());
         matchScoreCalculationService.addPoint(isPlayerOne ? match.getPlayerOne() : match.getPlayerTwo());
 
@@ -57,7 +54,8 @@ public class MatchScoreController extends BasicController {
         if(match.isMatchOver()){
             finishedMatchesPersistenceService.save(match);
             ongoingMatchesService.deleteOngoingMatch(match);
-
+            request.setAttribute("playerWinner", playerName);
+            response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" + playerName);
         }
 
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
