@@ -1,6 +1,7 @@
 package io.github.xcvqqz.tennis_scoreboard.util;
 
 import io.github.xcvqqz.tennis_scoreboard.exception.BadRequestException;
+import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ public class Validator {
 
     private static final String INVALID_START_PAGE_PARAMETER_MESSAGE = "Page numbering starts from number 1";
     private static final String INVALID_TOTAL_PAGE_PARAMETER_MESSAGE = "You have entered a page number that is out of range";
+    private static final String DUPLICATE_NAME_MESSAGE = "Player 1's name matches Player 2's name. Player names must be unique";
 
 
 
@@ -44,6 +46,13 @@ public class Validator {
             if(page > TotalPage){
                 throw new BadRequestException(INVALID_TOTAL_PAGE_PARAMETER_MESSAGE);
             }
+    }
+
+
+    public static void validateNamesUniqueness(String namePlayerOne, String namePlayerTwo) {
+        if(namePlayerOne.equals(namePlayerTwo)) {
+            throw new DuplicateNameException(DUPLICATE_NAME_MESSAGE);
+        }
     }
 
 

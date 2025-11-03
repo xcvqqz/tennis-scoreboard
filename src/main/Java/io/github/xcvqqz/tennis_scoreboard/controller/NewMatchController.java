@@ -30,6 +30,7 @@ public class NewMatchController extends BasicController {
 
         Validator.validate(playerOneName);
         Validator.validate(playerTwoName);
+        Validator.validateNamesUniqueness(playerOneName, playerTwoName);
 
         Player onePlayerEntity = playerService.createPlayerIfNotExists(playerOneName);
         Player twoPlayerEntity = playerService.createPlayerIfNotExists(playerTwoName);
