@@ -27,8 +27,6 @@ public class FinishedMatchesController extends BasicController {
         Long page = Long.parseLong(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
 
-        Validator.validate(playerName);
-
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 
         Validator.validate(page, paginationResponseDTO.getTotalPage());

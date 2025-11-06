@@ -1,6 +1,7 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
+import io.github.xcvqqz.tennis_scoreboard.dto.MatchScoreDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
 import io.github.xcvqqz.tennis_scoreboard.util.Validator;
@@ -32,13 +33,10 @@ public class NewMatchController extends BasicController {
         Validator.validate(playerTwoName);
         Validator.validateNamesUniqueness(playerOneName, playerTwoName);
 
-        Player onePlayerEntity = playerService.createPlayerIfNotExists(playerOneName);
-        Player twoPlayerEntity = playerService.createPlayerIfNotExists(playerTwoName);
+        PlayerDTO onePlayerDTO = playerService.createOrGetPlayerDTO(playerOneName);
+        PlayerDTO twoPlayerDTO = playerService.createOrGetPlayerDTO(playerTwoName);
 
-        PlayerDTO onePlayerDTO = playerMapper.toDTO(onePlayerEntity);
-        PlayerDTO twoPlayerDTO = playerMapper.toDTO(twoPlayerEntity);
-
-        MatchDTO newMatch = new MatchDTO(onePlayerDTO, twoPlayerDTO);
+        MatchDTO newMatch = matchService.createNewMatchDTO(onePlayerDTO, twoPlayerDTO);
 
         UUID uuid = uuidUtil.getNewUUID();
 
@@ -56,10 +54,4 @@ public class NewMatchController extends BasicController {
 //        Редирект на страницу /match-score?uuid=$match_id
 
     }
-
-
-
-
-
-
 }

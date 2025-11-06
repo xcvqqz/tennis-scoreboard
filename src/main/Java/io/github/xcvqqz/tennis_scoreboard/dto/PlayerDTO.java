@@ -4,8 +4,10 @@ public class PlayerDTO {
 
     private String name;
     private MatchScoreDTO matchScoreDTO;
+    private Long id;
 
     public PlayerDTO(String name) {
+        this.id = id;
         this.name = name;
         this.matchScoreDTO = new MatchScoreDTO();
     }
@@ -27,6 +29,15 @@ public class PlayerDTO {
 
     public void setMatchScoreDTO(MatchScoreDTO matchScoreDTO) {
         this.matchScoreDTO = matchScoreDTO;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 

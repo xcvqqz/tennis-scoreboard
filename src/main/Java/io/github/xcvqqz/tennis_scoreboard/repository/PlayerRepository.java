@@ -49,35 +49,6 @@ public class PlayerRepository {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    public void update(int updatePlayer, Player updatedPlayer){
-    try(Session session = HibernateUtil.getSessionFactory().openSession()){
-
-        Player playerToBeUpdated = session.find(Player.class, updatePlayer);
-
-        playerToBeUpdated.getMatchesAsPlayerTwo().clear();
-        playerToBeUpdated.getMatchesAsPlayerOne().clear();
-        playerToBeUpdated.getWonMatches().clear();
-
-        playerToBeUpdated.setName(updatedPlayer.getName());
-        playerToBeUpdated.setMatchesAsPlayerOne(updatedPlayer.getMatchesAsPlayerOne());
-        playerToBeUpdated.setMatchesAsPlayerTwo(updatedPlayer.getMatchesAsPlayerTwo());
-        playerToBeUpdated.setWonMatches(updatedPlayer.getWonMatches());
-
-        session.getTransaction().commit();
-        }
-    }
-
     public void delete(int id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Player playerToBeDeleted = session.find(Player.class, id);

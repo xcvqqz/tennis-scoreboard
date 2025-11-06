@@ -183,47 +183,47 @@ public class TestMain {
 
 //CASCADE TEST
 
-                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
-                        session.beginTransaction();
-
-
-                        Match match = new Match();
-                        Player playerBobby = new Player();
-                        Player playerMargo = new Player();
-
-                        playerBobby.setName("Bobby");
-                        playerMargo.setName("Margo");
-
-                        match.setPlayerOne(playerBobby);
-                        match.setPlayerTwo(playerMargo);
-                        match.setWinner(playerMargo);
-
-                        playerBobby.setMatchesAsPlayerOne(new ArrayList<>(Collections.singleton(match)));
-                        playerMargo.setMatchesAsPlayerTwo(new ArrayList<>(Collections.singleton(match)));
-                        playerMargo.setWonMatches(new ArrayList<>(Collections.singleton(match)));
-
-                        session.persist(playerMargo);
-                        session.persist(playerBobby);
-                        //если стоит cascade = CascadeType.PERSIST , то session.persist(match) хибер сам вызовет
-
-
-
-                    List<Player> playerList = session.createQuery("from Player").getResultList();
-                    List<Match> matchList = session.createQuery("from Match ").getResultList();
-
-                    for(Player player : playerList){
-                        System.out.println(player);
-                    }
-
-                    for (Match m : matchList){
-                        System.out.println(m);
-                    }
-                        session.getTransaction().commit();
-
-                } catch (Exception e) {
-                        System.err.println("Error during testing:");
-                        e.printStackTrace();}
+//                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//
+//                        session.beginTransaction();
+//
+//
+//                        Match match = new Match();
+//                        Player playerBobby = new Player();
+//                        Player playerMargo = new Player();
+//
+//                        playerBobby.setName("Bobby");
+//                        playerMargo.setName("Margo");
+//
+//                        match.setPlayerOne(playerBobby);
+//                        match.setPlayerTwo(playerMargo);
+//                        match.setWinner(playerMargo);
+//
+//                        playerBobby.setMatchesAsPlayerOne(new ArrayList<>(Collections.singleton(match)));
+//                        playerMargo.setMatchesAsPlayerTwo(new ArrayList<>(Collections.singleton(match)));
+//                        playerMargo.setWonMatches(new ArrayList<>(Collections.singleton(match)));
+//
+//                        session.persist(playerMargo);
+//                        session.persist(playerBobby);
+//                        //если стоит cascade = CascadeType.PERSIST , то session.persist(match) хибер сам вызовет
+//
+//
+//
+//                    List<Player> playerList = session.createQuery("from Player").getResultList();
+//                    List<Match> matchList = session.createQuery("from Match ").getResultList();
+//
+//                    for(Player player : playerList){
+//                        System.out.println(player);
+//                    }
+//
+//                    for (Match m : matchList){
+//                        System.out.println(m);
+//                    }
+//                        session.getTransaction().commit();
+//
+//                } catch (Exception e) {
+//                        System.err.println("Error during testing:");
+//                        e.printStackTrace();}
 //-------------------------------------------------------------------------------------------------------------------------
 
 

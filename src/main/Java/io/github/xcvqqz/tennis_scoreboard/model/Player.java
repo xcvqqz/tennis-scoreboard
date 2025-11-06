@@ -18,40 +18,24 @@ public class Player {
     @Column(name = "name",unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "playerOne", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Match> matchesAsPlayerOne = new ArrayList<>();
-
-    @OneToMany(mappedBy = "playerTwo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Match> matchesAsPlayerTwo = new ArrayList<>();
-
-    @OneToMany(mappedBy = "winner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Match> wonMatches = new ArrayList<>();
 
     public Player(){}
 
     public Player(String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
 
-    public List<Match> getMatchesAsPlayerOne() {return matchesAsPlayerOne;}
-    public void setMatchesAsPlayerOne(List<Match> matchesAsPlayerOne) {this.matchesAsPlayerOne = matchesAsPlayerOne;}
+    public Long getId() {
+        return id;
+    }
 
-    public List<Match> getMatchesAsPlayerTwo() {return matchesAsPlayerTwo;}
-    public void setMatchesAsPlayerTwo(List<Match> matchesAsPlayerTwo) {this.matchesAsPlayerTwo = matchesAsPlayerTwo;}
-
-    public List<Match> getWonMatches() {return wonMatches;}
-    public void setWonMatches(List<Match> wonMatches) {this.wonMatches = wonMatches;}
-
-    public List<Match> getAllMatches() {
-        List<Match> allMatches = new ArrayList<>();
-        allMatches.addAll(getMatchesAsPlayerOne());
-        allMatches.addAll(getMatchesAsPlayerTwo());
-        return allMatches;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

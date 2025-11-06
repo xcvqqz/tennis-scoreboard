@@ -28,12 +28,6 @@ public class MatchScoreCalculationService {
 
 
     public void addPoint(PlayerDTO getsPlayerPoint) {
-        if (matchDTO.isMatchOver()) {
-            matchDTO.setWinner(getsPlayerPoint);
-
-            System.out.println("КОНЕЦ ИГРЫ. ПОБЕДИЛ ИГРОК " + getsPlayerPoint.getName());
-            return;
-        }
 
         MatchScoreDTO playerOneScore = matchDTO.getPlayerOne().getMatchScoreDTO();
         MatchScoreDTO playerTwoScore = matchDTO.getPlayerTwo().getMatchScoreDTO();
@@ -43,9 +37,7 @@ public class MatchScoreCalculationService {
         handlePoint(isPlayerOneScoring ? playerOneScore : playerTwoScore,
                     isPlayerOneScoring ? playerTwoScore : playerOneScore);
 
-        if(isWinner(getsPlayerPoint)){
-            matchDTO.setWinner(getsPlayerPoint);
-        }
+        isWinner(getsPlayerPoint);
 
     }
 
@@ -95,15 +87,14 @@ public class MatchScoreCalculationService {
         if(scoringSide.getMatchSet() == 2){
             scoringSide.setMatchSet(RESET_SCORE);
             opposingSide.setMatchSet(RESET_SCORE);
-
+            matchDTO.setMatchOver(true);
         }
     }
 
 
     private boolean isWinner(PlayerDTO pointWinner) {
-        if (pointWinner.getMatchScoreDTO().getMatchSet() >= 2) {
-            matchDTO.setMatchOver(true);
-            matchDTO.setWinner(pointWinner);
+       if(matchDTO.isMatchOver()){
+           matchDTO.setWinner(pointWinner);
             return true;
         } else {
             return false;

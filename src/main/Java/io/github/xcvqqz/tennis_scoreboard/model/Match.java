@@ -31,14 +31,17 @@ public class Match {
 
     public Match() {}
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+
+
     public Player getPlayerOne() {return playerOne;}
     public void setPlayerOne(Player playerOne) {this.playerOne = playerOne;}
     public Player getPlayerTwo() {return playerTwo;}
     public void setPlayerTwo(Player playerTwo) {this.playerTwo = playerTwo;}
     public Player getWinner() {return winner;}
     public void setWinner(Player winner) {this.winner = winner;}
+
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     @Override
     public String toString() {

@@ -56,9 +56,11 @@ public class MatchScoreController extends BasicController {
             ongoingMatchesService.deleteOngoingMatch(match);
             request.setAttribute("playerWinner", playerName);
             response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" + playerName);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
         }
 
-        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
+
 
 
 //        Обработчик POST запроса:

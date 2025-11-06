@@ -12,7 +12,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mapstruct>1.5.5.Final</mapstruct>
+    <mapstruct>1.6.3</mapstruct>
     <jUnit>3.8.1</jUnit>
     <h2database>2.3.232</h2database>
     <hibernate-core>7.0.9.Final</hibernate-core>
@@ -77,6 +77,11 @@
         <artifactId>mapstruct</artifactId>
         <version>${mapstruct}</version>
       </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>${mapstruct}</version>
+    </dependency>
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-hikaricp</artifactId>

@@ -10,13 +10,17 @@ import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PaginationResponseDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Match;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
+import io.github.xcvqqz.tennis_scoreboard.util.mapper.MatchMapper;
 import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 
 public class FinishedMatchesPersistenceService {
 
     private final MatchRepository matchRepository = new MatchRepository();
+    private final MatchMapper matchMapper = MatchMapper.INSTANCE;
+    private final PlayerMapper playerMapper = PlayerMapper.INSTANCE;
     private final PlayerRepository playerRepository = new PlayerRepository();
 
     private static final int DEFAULT_PAGE_SIZE = 10;
@@ -25,18 +29,9 @@ public class FinishedMatchesPersistenceService {
 
 
     public void save(MatchDTO match) {
-        Player playerOne = PlayerMapper.INSTANCE.toEntity(match.getPlayerOne());
-        Player playerTwo = PlayerMapper.INSTANCE.toEntity(match.getPlayerTwo());
-        Player winner = PlayerMapper.INSTANCE.toEntity(match.getWinner());
-        Match finishedMatch = new Match(playerOne, playerTwo, winner);
+        Match finishedMatch = matchMapper.toEntity(match);
         matchRepository.save(finishedMatch);
     }
-
-
-    public List<Match> findAllMatches(){
-        return matchRepository.findAll();
-    }
-
 
 
     // 1) Общее колличество матчей+ (totalMatches) +
