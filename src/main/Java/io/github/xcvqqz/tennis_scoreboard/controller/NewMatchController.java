@@ -35,7 +35,6 @@ public class NewMatchController extends BasicController {
 
         PlayerDTO onePlayerDTO = playerService.createOrGetPlayerDTO(playerOneName);
         PlayerDTO twoPlayerDTO = playerService.createOrGetPlayerDTO(playerTwoName);
-
         MatchDTO newMatch = matchService.createNewMatchDTO(onePlayerDTO, twoPlayerDTO);
 
         UUID uuid = uuidUtil.getNewUUID();

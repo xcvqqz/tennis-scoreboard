@@ -1,5 +1,7 @@
 package io.github.xcvqqz.tennis_scoreboard.filter;
 
+import io.github.xcvqqz.tennis_scoreboard.exception.BadRequestException;
+import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -37,7 +39,18 @@ public class MatchesParamFilter extends HttpFilter {
             }
         };
 
+        try {
             filterChain.doFilter(request, response);
+        } catch (BadRequestException e) {
+            sendError(request, response, e, HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
 
+
+    private void sendError(HttpServletRequest request, HttpServletResponse response, Exception e, int status) throws IOException, ServletException {
+        response.setStatus(status);
+        request.setAttribute("errorMessage", e.getMessage());
+        request.setAttribute("statusCode", status);
+        request.getRequestDispatcher("/matches.jsp").forward(request, response);
+    }
 }

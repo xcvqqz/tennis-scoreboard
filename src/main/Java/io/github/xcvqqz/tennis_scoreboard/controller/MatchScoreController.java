@@ -26,14 +26,6 @@ public class MatchScoreController extends BasicController {
         request.setAttribute("uuid", uuid);
 
         request.getRequestDispatcher("/match-score.jsp").forward(request, response);
-
-//        Адрес - /match-score?uuid=$match_id. GET параметр uuid содержит UUID матча.
-//
-//        Интерфейс:
-//        Таблица с именами игроков, текущим счётом
-//        Формы и кнопки для действий - “игрок 1 выиграл текущее очко”, “игрок 2 выиграл текущее очко”
-//        Нажатие кнопок приводит к POST запросу по адресу /match-score?uuid=$match_id,
-//        в полях отправленной формы содержится айди выигравшего очко игрока
     }
 
 
@@ -50,7 +42,6 @@ public class MatchScoreController extends BasicController {
         boolean isPlayerOne = playerName.equals(match.getPlayerOne().getName());
         matchScoreCalculationService.addPoint(isPlayerOne ? match.getPlayerOne() : match.getPlayerTwo());
 
-
         if(match.isMatchOver()){
             finishedMatchesPersistenceService.save(match);
             ongoingMatchesService.deleteOngoingMatch(match);
@@ -59,20 +50,6 @@ public class MatchScoreController extends BasicController {
         } else {
             response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
         }
-
-
-
-
-//        Обработчик POST запроса:
-
-//        Извлекает из коллекции экземпляр класса Match
-//        В соответствии с тем, какой игрок выиграл очко, обновляет счёт матча
-//        Если матч не закончился - рендерится таблица счёта матча с кнопками, описанными выше
-//        Если матч закончился:
-//        Удаляем матч из коллекции текущих матчей
-//        Записываем законченный матч в SQL базу данных
-//        Рендерим финальный счёт
-
     }
 
 

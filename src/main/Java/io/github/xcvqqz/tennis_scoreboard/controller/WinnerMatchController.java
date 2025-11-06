@@ -1,14 +1,11 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
-import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
-import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
 
 
     @WebServlet("/winner-match")
@@ -28,6 +25,4 @@ import java.io.IOException;
         public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         }
-
     }
-

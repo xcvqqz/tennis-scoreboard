@@ -29,7 +29,7 @@ public class FinishedMatchesController extends BasicController {
 
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 
-        Validator.validate(page, paginationResponseDTO.getTotalPage());
+        Validator.validate(page, paginationResponseDTO.getTotalPage());  //СЮДА ДОБАВИТЬ ПРОВЕРКУ НА playerName
 
         request.setAttribute("page", page);
         request.setAttribute("playerName", playerName);

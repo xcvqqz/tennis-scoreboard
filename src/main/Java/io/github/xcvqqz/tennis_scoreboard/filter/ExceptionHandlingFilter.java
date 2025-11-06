@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebFilter({"/new-match", "/matches"})
+@WebFilter("/new-match")
 public class ExceptionHandlingFilter extends HttpFilter {
 
 
@@ -36,5 +36,4 @@ public class ExceptionHandlingFilter extends HttpFilter {
         request.setAttribute("statusCode", status);
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
     }
-
 }

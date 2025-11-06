@@ -18,7 +18,6 @@ public class Validator {
     private static final String DUPLICATE_NAME_MESSAGE = "Player 1's name matches Player 2's name. Player names must be unique";
 
 
-
     public Validator(){}
 
 
@@ -40,6 +39,7 @@ public class Validator {
 
 
         public static void validate(Long page, Long TotalPage){
+
             if(page < 1){
                 throw new BadRequestException(INVALID_START_PAGE_PARAMETER_MESSAGE);
         }
