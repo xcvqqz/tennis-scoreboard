@@ -22,7 +22,6 @@ public class NewMatchController extends BasicController {
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
     }
 
-
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

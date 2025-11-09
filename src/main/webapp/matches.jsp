@@ -19,6 +19,10 @@
 </head>
 <body>
 
+<c:if test="${not empty errorMessage}">
+    <p>Код ошибки: ${statusCode}</p><br><br>
+    <p>У вас ошибка: ${errorMessage}</p><br><br>
+</c:if>
 
 <form action="matches" method="get">
 <label for="filter_by_player_name">Фильтрация по имени игрока</label>

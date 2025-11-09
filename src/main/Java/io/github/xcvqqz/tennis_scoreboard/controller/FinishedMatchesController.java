@@ -9,14 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-
-//сначала переходим на первую страницу matches (ловим через фильтр)
-
-//потом уже принимаем page и filter_by_player_name, потом вызываем снова GET запрос
-
-//реализация пагинации
-
-
 @WebServlet("/matches")
 public class FinishedMatchesController extends BasicController {
 
@@ -27,9 +19,9 @@ public class FinishedMatchesController extends BasicController {
         Long page = Long.parseLong(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
 
-        PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
+        Validator.validate(page, playerName);
 
-        Validator.validate(page, playerName, paginationResponseDTO.getTotalPage());  //СЮДА ДОБАВИТЬ ПРОВЕРКУ НА playerName
+        PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 
         request.setAttribute("page", page);
         request.setAttribute("playerName", playerName);

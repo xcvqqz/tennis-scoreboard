@@ -17,7 +17,6 @@ public class MatchScoreController extends BasicController {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
 
         MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
@@ -51,8 +50,5 @@ public class MatchScoreController extends BasicController {
             response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
         }
     }
-
-
-
 
 }

@@ -35,13 +35,10 @@ public class Validator {
 
 
 
-        public static void validate(Long page, String name, Long TotalPage) {
+        public static void validate(Long page, String name) {
 
             if(page < 1){
                 throw new BadRequestException(INVALID_START_PAGE_PARAMETER_MESSAGE);
-            }
-            if(page > TotalPage){
-                throw new BadRequestException(INVALID_TOTAL_PAGE_PARAMETER_MESSAGE);
             }
 
             if(name.isBlank()){
