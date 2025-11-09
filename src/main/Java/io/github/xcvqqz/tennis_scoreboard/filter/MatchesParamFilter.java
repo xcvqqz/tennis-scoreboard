@@ -1,7 +1,6 @@
 package io.github.xcvqqz.tennis_scoreboard.filter;
 
 import io.github.xcvqqz.tennis_scoreboard.exception.BadRequestException;
-import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -18,10 +17,10 @@ public class MatchesParamFilter extends HttpFilter {
 
 
     @Override
-    public void doFilter(HttpServletRequest servletRequest, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-
-        HttpServletRequest request = new HttpServletRequestWrapper(servletRequest) {
+try {
+        HttpServletRequest requestWrapper = new HttpServletRequestWrapper(request) {
 
             @Override
             public String getParameter(String name) {
@@ -38,13 +37,11 @@ public class MatchesParamFilter extends HttpFilter {
                 return super.getParameter(name);
             }
         };
-
-        try {
-            filterChain.doFilter(request, response);
-        } catch (BadRequestException e) {
-            sendError(request, response, e, HttpServletResponse.SC_BAD_REQUEST);
+               filterChain.doFilter(requestWrapper, response);
+            } catch (BadRequestException e) {
+                sendError(request, response, e, HttpServletResponse.SC_BAD_REQUEST);
+            }
         }
-    }
 
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, Exception e, int status) throws IOException, ServletException {
@@ -54,3 +51,29 @@ public class MatchesParamFilter extends HttpFilter {
         request.getRequestDispatcher("/matches.jsp").forward(request, response);
     }
 }
+
+
+
+
+
+
+//        String page = request.getParameter("page");
+//        String filterByPlayerName = request.getParameter("filter_by_player_name");
+//
+//    try {
+//
+//        if(page != null && filterByPlayerName != null){
+//            response.sendRedirect(request.getContextPath() + "/matches?page=" + page + "&filter_by_player_name=" + filterByPlayerName);
+//            return;
+//        }
+//
+//        if(filterByPlayerName == null){
+//            filterByPlayerName = "";
+//        }
+//
+//        if(page == null){
+//            page = "1";
+//        }
+//
+//
+//    }

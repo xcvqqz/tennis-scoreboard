@@ -6,7 +6,6 @@ import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
 import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
 
-import java.util.UUID;
 
 public class PlayerService {
 
@@ -25,19 +24,16 @@ public class PlayerService {
 
 
    private Player createPlayerIfNotExists(String name) {
-       return playerRepository.findByName(name)
+       String formattedName = formatName(name);
+       return playerRepository.findByName(formattedName)
                .orElseGet(() -> {
-                   Player newPlayer = new Player(name);
+                   Player newPlayer = new Player(formattedName);
                    playerRepository.save(newPlayer);
                    return newPlayer;
                });
    }
 
-
-
-
-
-
-
-
+   private String formatName(String name){
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase().trim();
+    }
 }
