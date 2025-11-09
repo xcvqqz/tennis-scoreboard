@@ -51,29 +51,3 @@ try {
         request.getRequestDispatcher("/matches.jsp").forward(request, response);
     }
 }
-
-
-
-
-
-
-//        String page = request.getParameter("page");
-//        String filterByPlayerName = request.getParameter("filter_by_player_name");
-//
-//    try {
-//
-//        if(page != null && filterByPlayerName != null){
-//            response.sendRedirect(request.getContextPath() + "/matches?page=" + page + "&filter_by_player_name=" + filterByPlayerName);
-//            return;
-//        }
-//
-//        if(filterByPlayerName == null){
-//            filterByPlayerName = "";
-//        }
-//
-//        if(page == null){
-//            page = "1";
-//        }
-//
-//
-//    }

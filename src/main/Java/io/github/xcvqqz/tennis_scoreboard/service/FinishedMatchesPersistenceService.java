@@ -20,8 +20,6 @@ public class FinishedMatchesPersistenceService {
 
     private final MatchRepository matchRepository = new MatchRepository();
     private final MatchMapper matchMapper = MatchMapper.INSTANCE;
-    private final PlayerMapper playerMapper = PlayerMapper.INSTANCE;
-    private final PlayerRepository playerRepository = new PlayerRepository();
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 

@@ -16,7 +16,6 @@ public class PlayerService {
         this.playerRepository = new PlayerRepository();
     }
 
-
     public PlayerDTO createOrGetPlayerDTO(String name){
         Player player = createPlayerIfNotExists(name);
         return playerMapper.toDTO(player);

@@ -33,24 +33,14 @@ public class NewMatchController extends BasicController {
         Validator.validate(playerTwoName);
         Validator.validateNamesUniqueness(playerOneName, playerTwoName);
 
-        PlayerDTO onePlayerDTO = playerService.createOrGetPlayerDTO(playerOneName);
-        PlayerDTO twoPlayerDTO = playerService.createOrGetPlayerDTO(playerTwoName);
-        MatchDTO newMatch = matchService.createNewMatchDTO(onePlayerDTO, twoPlayerDTO);
-
         UUID uuid = uuidUtil.getNewUUID();
 
-        ongoingMatchesService.addNewOngoingMatches(uuid, newMatch);
+        PlayerDTO onePlayerDTO = playerService.createOrGetPlayerDTO(playerOneName);
+        PlayerDTO twoPlayerDTO = playerService.createOrGetPlayerDTO(playerTwoName);
+        ongoingMatchesService.createNewOngoingMatch(uuid, onePlayerDTO, twoPlayerDTO);
 
         request.setAttribute("uuid", uuid);
 
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
-
-
-//        Проверяет существование игроков в таблице Players. Если игрока с таким именем не существует, то создаём
-//        Создаём экземпляр класса, содержащего айди игроков и текущий счёт,
-//        и кладём в коллекцию текущих матчей (существующую только в памяти приложения, либо в key-value storage).
-//        Ключом коллекции является UUID, значением - счёт в матче
-//        Редирект на страницу /match-score?uuid=$match_id
-
     }
 }
