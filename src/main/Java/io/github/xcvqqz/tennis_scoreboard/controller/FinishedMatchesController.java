@@ -12,7 +12,6 @@ import java.io.IOException;
 @WebServlet("/matches")
 public class FinishedMatchesController extends BasicController {
 
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -28,13 +27,6 @@ public class FinishedMatchesController extends BasicController {
         request.setAttribute("matches", paginationResponseDTO.getMatches());
         request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
 
-        request.getRequestDispatcher("/matches.jsp").forward(request, response);
+        forwardToFinishedMatches(request, response);
     }
-
-
-    @Override
-    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-    }
-
 }

@@ -18,15 +18,13 @@ public class MatchScoreController extends BasicController {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
-
         MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
 
         request.setAttribute("match", match);
         request.setAttribute("uuid", uuid);
 
-        request.getRequestDispatcher("/match-score.jsp").forward(request, response);
+        forwardToMatchScore(request, response);
     }
-
 
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -35,7 +33,6 @@ public class MatchScoreController extends BasicController {
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
 
         MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
-
         MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(match);
 
         boolean isPlayerOne = playerName.equals(match.getPlayerOne().getName());
@@ -45,10 +42,9 @@ public class MatchScoreController extends BasicController {
             finishedMatchesPersistenceService.save(match);
             ongoingMatchesService.deleteOngoingMatch(match);
             request.setAttribute("playerWinner", playerName);
-            response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" + playerName);
+            sendRedirectToWinnerMatch(request, response, playerName);
         } else {
-            response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
+            sendRedirectToMatchScore(request, response, uuid);
         }
     }
-
 }

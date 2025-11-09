@@ -19,11 +19,11 @@ public class NewMatchController extends BasicController {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/new-match.jsp").forward(request, response);
+        forwardToNewMatch(request, response);
     }
 
     @Override
-    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String playerOneName = request.getParameter("playerOneName");
         String playerTwoName = request.getParameter("playerTwoName");
@@ -40,6 +40,6 @@ public class NewMatchController extends BasicController {
 
         request.setAttribute("uuid", uuid);
 
-        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
+        sendRedirectToMatchScore(request, response, uuid);
     }
 }

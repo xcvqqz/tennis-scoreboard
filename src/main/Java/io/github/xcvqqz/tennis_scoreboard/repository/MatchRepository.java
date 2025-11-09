@@ -9,14 +9,6 @@ import java.util.List;
 
 public class MatchRepository {
 
-    public List<Match> findAll(){
-        List<Match> allMatches;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            allMatches = session.createQuery("from Match").getResultList();
-        }
-        return allMatches;
-    }
-
     public Match findById(int id){
         Match match;
 
@@ -35,22 +27,8 @@ public class MatchRepository {
         }
     }
 
-    public void update(int idMatchToBeUpdated, Match updatedMatch){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-
-            Match matchToBeUpdated = session.find(Match.class, idMatchToBeUpdated);
-
-            matchToBeUpdated.setPlayerOne(updatedMatch.getPlayerOne());
-            matchToBeUpdated.setPlayerTwo(updatedMatch.getPlayerTwo());
-            matchToBeUpdated.setWinner(updatedMatch.getWinner());
-
-            session.getTransaction().commit();
-        }
-    }
 
 
-
-    //сколько всего матчей завершённых
     public Long countFinishedMatches(String playerName, int offset, int limit) {
 
         StringBuilder sb = new StringBuilder("SELECT COUNT(m) FROM Match m");
@@ -73,8 +51,6 @@ public class MatchRepository {
     }
 
 
-        //найти список всех матчей
-
         public List<Match> findFinishedMatches(String playerName, int offset, int limit){
 
             StringBuilder hql = new StringBuilder("FROM Match");
@@ -95,24 +71,5 @@ public class MatchRepository {
                         setMaxResults(limit).
                         list();
             }
-
     }
-
-
-
-
-
-
-    public void delete(int id){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Match matchToBeDeleted = session.find(Match.class, id);
-            session.remove(matchToBeDeleted);
-            session.getTransaction().commit();
-        }
-    }
-
-
-
-
-
 }

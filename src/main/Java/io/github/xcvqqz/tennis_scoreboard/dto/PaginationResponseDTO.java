@@ -11,7 +11,6 @@ public class PaginationResponseDTO {
     private Long totalPage;
 
 
-
     public PaginationResponseDTO(List<Match> matches, Long totalPage) {
         this.matches = matches;
         this.totalPage = totalPage;

@@ -33,8 +33,6 @@ public class Validator {
         }
     }
 
-
-
         public static void validate(Long page, String name) {
 
             if(page < 1){
@@ -48,12 +46,9 @@ public class Validator {
             validate(name);
     }
 
-
     public static void validateNamesUniqueness(String namePlayerOne, String namePlayerTwo) {
         if(namePlayerOne.equals(namePlayerTwo)) {
             throw new DuplicateNameException(DUPLICATE_NAME_MESSAGE);
         }
     }
-
-
 }
