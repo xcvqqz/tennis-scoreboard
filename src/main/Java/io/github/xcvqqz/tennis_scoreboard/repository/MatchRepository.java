@@ -27,8 +27,6 @@ public class MatchRepository {
         }
     }
 
-
-
     public Long countFinishedMatches(String playerName, int offset, int limit) {
 
         StringBuilder sb = new StringBuilder("SELECT COUNT(m) FROM Match m");

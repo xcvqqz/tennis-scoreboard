@@ -18,7 +18,7 @@ public class OngoingMatchesService {
     private static final Map<UUID, MatchDTO> ongoingMatches = new HashMap<>();
     private MatchMapper matchMapper = MatchMapper.INSTANCE;
 
-    public OngoingMatchesService() {}
+    public OngoingMatchesService(){}
 
     public void createNewOngoingMatch(UUID uuid, PlayerDTO playerOneDTO, PlayerDTO playerTwoDTO){
         MatchDTO matchDTO = createNewMatchDTO(playerOneDTO, playerTwoDTO);
@@ -43,5 +43,4 @@ public class OngoingMatchesService {
     private void addNewOngoingMatches(UUID uuid, MatchDTO matchDTO) {
         ongoingMatches.put(uuid, matchDTO);
     }
-
 }

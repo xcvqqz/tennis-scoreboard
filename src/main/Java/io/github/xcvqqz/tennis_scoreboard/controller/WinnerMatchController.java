@@ -17,7 +17,6 @@ import java.io.IOException;
             String playerWinner = request.getParameter("playerWinner");
             request.setAttribute("playerWinner", playerWinner);
             request.getRequestDispatcher("/winner-match.jsp").forward(request, response);
-
         }
 
 

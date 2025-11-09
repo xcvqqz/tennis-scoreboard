@@ -1,10 +1,5 @@
 package io.github.xcvqqz.tennis_scoreboard.service;
 
-
-
-//реализует логику подсчёта счёта матча по очкам/геймам/сетам
-
-
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchScoreDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
@@ -26,7 +21,6 @@ public class MatchScoreCalculationService {
         this.matchDTO = matchDTO;
     }
 
-
     public void addPoint(PlayerDTO getsPlayerPoint) {
 
         MatchScoreDTO playerOneScore = matchDTO.getPlayerOne().getMatchScoreDTO();
@@ -38,9 +32,7 @@ public class MatchScoreCalculationService {
                     isPlayerOneScoring ? playerTwoScore : playerOneScore);
 
         isWinner(getsPlayerPoint);
-
     }
-
 
     private void handlePoint(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide) {
 
@@ -60,12 +52,9 @@ public class MatchScoreCalculationService {
             incrementMatchScore(scoringSide);
         }
 
-
             checkSetWin(scoringSide, opposingSide);
             checkMatchWin(scoringSide, opposingSide);
-
     }
-
 
     private void winGame(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide) {
         scoringSide.setMatchScore(RESET_SCORE);
@@ -82,7 +71,6 @@ public class MatchScoreCalculationService {
         }
     }
 
-
     private void checkMatchWin(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide){
         if(scoringSide.getMatchSet() == 2){
             scoringSide.setMatchSet(RESET_SCORE);
@@ -91,13 +79,12 @@ public class MatchScoreCalculationService {
         }
     }
 
-
     private boolean isWinner(PlayerDTO pointWinner) {
        if(matchDTO.isMatchOver()){
            matchDTO.setWinner(pointWinner);
-            return true;
+           return true;
         } else {
-            return false;
+           return false;
         }
     }
 
@@ -118,7 +105,6 @@ public class MatchScoreCalculationService {
         addAdvantage(scoringSide, opposingSide);
     }
 
-
     private void addAdvantage(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide) {
             scoringSide.setAdvantage(true);
             opposingSide.setAdvantage(false);
@@ -133,9 +119,7 @@ public class MatchScoreCalculationService {
         return scoringSide.getMatchGame() == TIEBREAK_SITUATION_POINTS && opposingSide.getMatchGame() == TIEBREAK_SITUATION_POINTS;
     }
 
-
     private void handleTieBreakSituation(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide){
-
         if(!matchDTO.isOpenTieBreak()){
             matchDTO.setOpenTieBreak(true);
             incrementTieBreakPoint(scoringSide);
@@ -151,16 +135,11 @@ public class MatchScoreCalculationService {
                 scoringSide.setTieBreakPoint(RESET_SCORE);
                 opposingSide.setTieBreakPoint(RESET_SCORE);
                 matchDTO.setOpenTieBreak(false);
-                checkMatchWin(scoringSide,opposingSide);
-        }
+                checkMatchWin(scoringSide,opposingSide);}
     }
 
-
-
-        private boolean hasTwoPointLead(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide) {
-         return Math.abs(scoringSide.getTieBreakPoint() - opposingSide.getTieBreakPoint()) >= BREAK_POINT_ADVANTAGE;
-    }
-
+    private boolean hasTwoPointLead(MatchScoreDTO scoringSide, MatchScoreDTO opposingSide) {
+        return Math.abs(scoringSide.getTieBreakPoint() - opposingSide.getTieBreakPoint()) >= BREAK_POINT_ADVANTAGE;}
 
         private void incrementMatchScore (MatchScoreDTO scoringSide){
             switch (scoringSide.getMatchScore()) {
@@ -174,16 +153,15 @@ public class MatchScoreCalculationService {
                     scoringSide.setMatchScore(FORTY_SCORE_POINTS);
                     break;
             }
-        }
-
+    }
 
     private void incrementMatchGame (MatchScoreDTO scoringSide){
         scoringSide.setMatchGame(scoringSide.getMatchGame() + INCREMENT_VALUE);
-        }
+    }
 
-        private void incrementMatchSet (MatchScoreDTO scoringSide){
+    private void incrementMatchSet (MatchScoreDTO scoringSide){
             scoringSide.setMatchSet(scoringSide.getMatchSet() + INCREMENT_VALUE);
-        }
+    }
 
     private void incrementTieBreakPoint (MatchScoreDTO scoringSide){
         scoringSide.setTieBreakPoint(scoringSide.getTieBreakPoint() + INCREMENT_VALUE);

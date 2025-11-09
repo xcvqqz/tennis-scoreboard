@@ -2,10 +2,6 @@ package io.github.xcvqqz.tennis_scoreboard.model;
 
 import jakarta.persistence.*;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity     //всегда должен быть пустой конструктор и поле id, использует Hibernate как сущность
 @Table(name = "Players") //необязательно использовать, так как одно и тоже название, но лучше явно указать
 public class Player {

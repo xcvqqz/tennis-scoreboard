@@ -1,11 +1,9 @@
 package io.github.xcvqqz.tennis_scoreboard.service;
 
-
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
 import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
-
 
 public class PlayerService {
 
@@ -20,7 +18,6 @@ public class PlayerService {
         Player player = createPlayerIfNotExists(name);
         return playerMapper.toDTO(player);
     }
-
 
    private Player createPlayerIfNotExists(String name) {
        String formattedName = formatName(name);
