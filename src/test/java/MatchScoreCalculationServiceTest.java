@@ -41,6 +41,14 @@ public class MatchScoreCalculationServiceTest {
     }
 
 
+    //5) если игрок 1 набирает 2 очка в сете, то игра заканчивается
+    @Test
+    public void shouldMatchOverAfterTwoSetPoints() {
+        assertTrue(isMatchOverAfterTwoSetPoint(matchDTOTest));
+    }
+
+
+
     private MatchDTO createNewTestMatch() {
         PlayerDTO playerOneTest = new PlayerDTO();
         PlayerDTO playerTwoTest = new PlayerDTO();
@@ -95,8 +103,23 @@ public class MatchScoreCalculationServiceTest {
         } else {
             return false;
         }
-
     }
+
+
+
+    private boolean isMatchOverAfterTwoSetPoint(MatchDTO matchDTO) {
+        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchScore(40);
+        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchGame(6);
+        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchSet(1);
+        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
+        if (matchDTO.isMatchOver()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
 
 
