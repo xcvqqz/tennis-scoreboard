@@ -101,7 +101,7 @@ public class MatchScoreCalculationServiceTest {
 
 
     @Test
-    public void shouldNotContinueTiebreakWhenLeadIsTwoPoint(){
+    public void shouldEndTiebreakWhenLeadIsTwoPoint(){
 
         match.setOpenTieBreak(true);
         setTieBreakPoints(10,9);
