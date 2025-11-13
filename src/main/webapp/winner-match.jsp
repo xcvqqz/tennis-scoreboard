@@ -18,5 +18,7 @@
     <p><strong>У НАС ПОЯВИЛСЯ ПОБЕДИТЕЛЬ: ${playerWinner}. ПОЗДРАВЛЯЕМ!!!!</strong></p>
 </c:if>
 
+
+
 </body>
 </html>

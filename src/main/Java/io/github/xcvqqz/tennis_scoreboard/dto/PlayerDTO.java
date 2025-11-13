@@ -13,6 +13,7 @@ public class PlayerDTO {
     }
 
     public PlayerDTO() {
+
         this.matchScoreDTO = new MatchScoreDTO();
     }
 

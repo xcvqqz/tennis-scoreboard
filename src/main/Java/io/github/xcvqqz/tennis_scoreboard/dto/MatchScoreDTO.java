@@ -1,56 +1,58 @@
 package io.github.xcvqqz.tennis_scoreboard.dto;
 
 public class MatchScoreDTO {
-    private int matchScore;           //15-30-40-
-    private int matchGame;           //1-2-3-4-5-6-7
-    private int matchSet;           //1-2(Best of 3)
-    private int tieBreakPoint;
-    private boolean advantage;
-
+    private int points;
+    private int games;
+    private int sets;
+    private int tieBreakPoints;
+    private boolean hasAdvantage;
 
     public MatchScoreDTO(){
-        this.matchScore = 0;
-        this.matchGame = 0;
-        this.matchSet = 0;
-        this.tieBreakPoint = 0;
-        this.advantage = false;
+        this.points = 0;
+        this.games = 0;
+        this.sets = 0;
+        this.tieBreakPoints = 0;
+        this.hasAdvantage = false;
     }
 
-    public int getMatchScore() {
-        return matchScore;
+    public int getPoints() {
+        return points;
     }
 
-    public void setMatchScore(int matchScore) {
-        this.matchScore = matchScore;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
-    public int getMatchGame() {
-        return matchGame;
+    public int getGames() {
+        return games;
     }
 
-    public void setMatchGame(int matchGame) {
-        this.matchGame = matchGame;
+    public void setGames(int games) {
+        this.games = games;
     }
 
-    public int getMatchSet() {
-        return matchSet;
+    public int getSets() {
+        return sets;
     }
 
-    public void setMatchSet(int matchSet) {
-        this.matchSet = matchSet;
+    public void setSets(int sets) {
+        this.sets = sets;
     }
 
-    public boolean isAdvantage() {return advantage;}
-
-    public void setAdvantage(boolean advantage) {
-        this.advantage = advantage;}
-
-    public int getTieBreakPoint() {
-        return tieBreakPoint;
+    public int getTieBreakPoints() {
+        return tieBreakPoints;
     }
 
-    public void setTieBreakPoint(int tieBreakPoint) {
-        this.tieBreakPoint = tieBreakPoint;
+    public void setTieBreakPoints(int tieBreakPoints) {
+        this.tieBreakPoints = tieBreakPoints;
+    }
+
+    public boolean isHasAdvantage() {
+        return hasAdvantage;
+    }
+
+    public void setHasAdvantage(boolean hasAdvantage) {
+        this.hasAdvantage = hasAdvantage;
     }
 }
 

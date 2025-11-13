@@ -18,11 +18,11 @@
 
 
 <p><strong>Player One:</strong> ${match.playerOne.name}</p>
-<p><strong>Score:</strong> ${match.playerOne.matchScoreDTO.matchScore}</p>
-<p><strong>Game:</strong> ${match.playerOne.matchScoreDTO.matchGame}</p>
-<p><strong>Set:</strong> ${match.playerOne.matchScoreDTO.matchSet}</p>
-<p><strong>Advantage:</strong> ${match.playerOne.matchScoreDTO.advantage}</p>
-<p><strong>TieBreakPoint:</strong> ${match.playerOne.matchScoreDTO.tieBreakPoint}</p>
+<p><strong>Points:</strong> ${match.playerOne.matchScoreDTO.points}</p>
+<p><strong>Games:</strong> ${match.playerOne.matchScoreDTO.games}</p>
+<p><strong>Sets:</strong> ${match.playerOne.matchScoreDTO.sets}</p>
+<p><strong>Advantage:</strong> ${match.playerOne.matchScoreDTO.hasAdvantage}</p>
+<p><strong>TieBreakPoints:</strong> ${match.playerOne.matchScoreDTO.tieBreakPoints}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerOne.name}">
     <input type="hidden" name="uuid" value="${param.uuid}">
@@ -31,11 +31,11 @@
 <br><br>
 
 <p><strong>Player Two:</strong> ${match.playerTwo.name}</p>
-<p><strong>Score:</strong> ${match.playerTwo.matchScoreDTO.matchScore}</p>
-<p><strong>Game:</strong> ${match.playerTwo.matchScoreDTO.matchGame}</p>
-<p><strong>Set:</strong> ${match.playerTwo.matchScoreDTO.matchSet}</p>
-<p><strong>Advantage:</strong> ${match.playerTwo.matchScoreDTO.advantage}</p>
-<p><strong>TieBreakPoint:</strong> ${match.playerTwo.matchScoreDTO.tieBreakPoint}</p>
+<p><strong>Points:</strong> ${match.playerTwo.matchScoreDTO.points}</p>
+<p><strong>Games:</strong> ${match.playerTwo.matchScoreDTO.games}</p>
+<p><strong>Sets:</strong> ${match.playerTwo.matchScoreDTO.sets}</p>
+<p><strong>Advantage:</strong> ${match.playerTwo.matchScoreDTO.hasAdvantage}</p>
+<p><strong>TieBreakPoints:</strong> ${match.playerTwo.matchScoreDTO.tieBreakPoints}</p>
 <form action="match-score" method="post">
     <input type="hidden" name="playerName" value="${match.playerTwo.name}">
     <input type="hidden" name="uuid" value="${param.uuid}">
