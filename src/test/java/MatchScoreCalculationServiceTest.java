@@ -1,5 +1,3 @@
-
-
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
@@ -46,7 +44,6 @@ public class MatchScoreCalculationServiceTest {
     public void shouldMatchOverAfterTwoSetPoints() {
         assertTrue(isMatchOverAfterTwoSetPoint(matchDTOTest));
     }
-
 
 
     private MatchDTO createNewTestMatch() {
