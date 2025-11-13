@@ -1,6 +1,7 @@
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -8,125 +9,126 @@ import static org.junit.Assert.assertTrue;
 
 public class MatchScoreCalculationServiceTest {
 
+    private MatchDTO match;
+    private MatchScoreCalculationService scoreCalculationService;
+    private PlayerDTO playerOne;
+    private PlayerDTO playerTwo;
 
-    private final MatchDTO matchDTOTest = createNewTestMatch();
-    private final MatchScoreCalculationService matchScoreCalculationServiceTest = new MatchScoreCalculationService(matchDTOTest);
+    @Before
+    public void setUp() {
+        playerOne = new PlayerDTO();
+        playerTwo = new PlayerDTO();
+        match = new MatchDTO(playerOne, playerTwo);
+        scoreCalculationService = new MatchScoreCalculationService(match);
+    }
 
 
-    //1) Если игрок 1 выигрывает очко при счёте 40-40, гейм не заканчивается
     @Test
-    public void shouldСontinueGameAfterFortyFortyGamePoints() {
-        assertFalse(isGameOverAfterFortyForty(matchDTOTest));
+    public void shouldContinueGameWhenPlayerScoresAtDeuce() {
+        setPlayerScores(40, 40);
+
+        scoreCalculationService.addPoint(playerOne);
+        assertFalse(isGameFinished());
     }
 
-    //2) Если игрок 1 выигрывает очко при счёте 40-0, то он выигрывает и гейм
+
     @Test
-    public void shouldWinGameWhenScoringAtFortyZero() {
-        assertTrue(isGameOverAfterFortyZeroMatchScorePoints(matchDTOTest));
+    public void shouldWinGameWhenScoringAtFortyLove() {
+        setPlayerScores(40, 0);
+
+        scoreCalculationService.addPoint(playerOne);
+        assertTrue(isGameFinished());
     }
 
-    //3) При счёте 6-6 начинается тайбрейк вместо обычного гейма
     @Test
-    public void shouldSTartTiebreakAtSixSixScoreGame() {
-        assertTrue(isTieBreakStartsAfterSixSixMatchGamePoints(matchDTOTest));
+    public void shouldStartTiebreakAtSixSix() {
+        setPlayerGames(6, 6);
+
+        scoreCalculationService.addPoint(playerOne);
+        assertTrue(match.isOpenTieBreak());
     }
 
 
-    //4) если игрок 1 набирает 7 очков в гейме, то он выигрывает сет
     @Test
-    public void shouldWinSetWhenMatchGameAtSevenZero() {
-        assertTrue(isGameOverAfterSevenZeroMatchGamePoint(matchDTOTest));
+    public void shouldWinSetWhenWinningSeventhGame() {
+        playerOne.getMatchScoreDTO().setMatchGame(6);
+        playerOne.getMatchScoreDTO().setMatchScore(40);
+        playerTwo.getMatchScoreDTO().setMatchGame(0);
+        playerTwo.getMatchScoreDTO().setMatchScore(0);
+
+
+        scoreCalculationService.addPoint(playerOne);
+        assertTrue(playerOne.getMatchScoreDTO().getMatchSet() > 0);
     }
 
 
-    //5) если игрок 1 набирает 2 очка в сете, то игра заканчивается
     @Test
-    public void shouldMatchOverAfterTwoSetPoints() {
-        assertTrue(isMatchOverAfterTwoSetPoint(matchDTOTest));
+    public void shouldEndMatchAfterWinningTwoSets() {
+
+        playerOne.getMatchScoreDTO().setMatchSet(1);
+        playerOne.getMatchScoreDTO().setMatchGame(6);
+        playerOne.getMatchScoreDTO().setMatchScore(40);
+        playerTwo.getMatchScoreDTO().setMatchSet(0);
+        playerTwo.getMatchScoreDTO().setMatchGame(0);
+        playerTwo.getMatchScoreDTO().setMatchScore(0);
+
+        scoreCalculationService.addPoint(playerOne);
+        assertTrue(match.isMatchOver());
     }
 
 
-    private MatchDTO createNewTestMatch() {
-        PlayerDTO playerOneTest = new PlayerDTO();
-        PlayerDTO playerTwoTest = new PlayerDTO();
-        return new MatchDTO(playerOneTest, playerTwoTest);
-    }
+    @Test
+    public void shouldSetScoreToFifteenLoveWhenPlayerOneScoresFirstPoint() {
+        scoreCalculationService.addPoint(playerOne);
 
-    private void setFortyScoreForPlayer(PlayerDTO playerDTOTets) {
-        playerDTOTets.getMatchScoreDTO().setMatchScore(40);
-    }
-
-    private boolean isGameOverAfterFortyForty(MatchDTO matchDTO) {
-        setFortyScoreForPlayer(matchDTOTest.getPlayerOne());
-        setFortyScoreForPlayer(matchDTOTest.getPlayerTwo());
-        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
-        if (matchDTO.getPlayerOne().getMatchScoreDTO().getMatchScore() == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isGameOverAfterFortyZeroMatchScorePoints(MatchDTO matchDTO) {
-        matchDTO.getPlayerOne().getMatchScoreDTO().setMatchScore(40);
-        matchDTO.getPlayerTwo().getMatchScoreDTO().setMatchScore(0);
-        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
-        if (matchDTO.getPlayerOne().getMatchScoreDTO().getMatchScore() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        assertTrue(playerOne.getMatchScoreDTO().getMatchScore() == 15);
+        assertTrue(playerTwo.getMatchScoreDTO().getMatchScore() == 0);
     }
 
 
-    private boolean isTieBreakStartsAfterSixSixMatchGamePoints(MatchDTO matchDTO) {
-        matchDTO.getPlayerOne().getMatchScoreDTO().setMatchGame(6);
-        matchDTO.getPlayerTwo().getMatchScoreDTO().setMatchGame(6);
-        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
-        if (matchDTO.isOpenTieBreak()) {
-            return true;
-        } else {
-            return false;
-        }
+    @Test
+    public void shouldNotEndTiebreakWhenLeadIsOnlyOnePoint(){
+
+        match.setOpenTieBreak(true);
+
+        playerOne.getMatchScoreDTO().setTieBreakPoint(9);
+        playerTwo.getMatchScoreDTO().setTieBreakPoint(9);
+
+        scoreCalculationService.addPoint(playerOne);
+
+        assertTrue(match.isOpenTieBreak());
     }
 
 
-    private boolean isGameOverAfterSevenZeroMatchGamePoint(MatchDTO matchDTO) {
-        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchGame(6);
-        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchScore(40);
-        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
-        if (matchDTO.getPlayerOne().getMatchScoreDTO().getMatchSet() == 1) {
-            return true;
-        } else {
-            return false;
-        }
+    @Test
+    public void shouldNotContinueTiebreakWhenLeadIsTwoPoint(){
+
+        match.setOpenTieBreak(true);
+        setTieBreakPoints(10,9);
+
+        scoreCalculationService.addPoint(playerOne);
+
+        assertFalse(match.isOpenTieBreak());
     }
 
 
-
-    private boolean isMatchOverAfterTwoSetPoint(MatchDTO matchDTO) {
-        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchScore(40);
-        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchGame(6);
-        matchDTOTest.getPlayerOne().getMatchScoreDTO().setMatchSet(1);
-        matchScoreCalculationServiceTest.addPoint(matchDTO.getPlayerOne());
-        if (matchDTO.isMatchOver()) {
-            return true;
-        } else {
-            return false;
-        }
+    private void setPlayerScores(int playerOneScore, int playerTwoScore) {
+        playerOne.getMatchScoreDTO().setMatchScore(playerOneScore);
+        playerTwo.getMatchScoreDTO().setMatchScore(playerTwoScore);
     }
 
+    private void setPlayerGames(int playerOneGames, int playerTwoGames) {
+        playerOne.getMatchScoreDTO().setMatchGame(playerOneGames);
+        playerTwo.getMatchScoreDTO().setMatchGame(playerTwoGames);
+    }
 
+    private void setTieBreakPoints(int playerOneTieBreakPoints, int playerTwoTieBreakPoints){
+        playerOne.getMatchScoreDTO().setTieBreakPoint(playerOneTieBreakPoints);
+        playerTwo.getMatchScoreDTO().setTieBreakPoint(playerTwoTieBreakPoints);
+    }
+
+    private boolean isGameFinished() {
+        return playerOne.getMatchScoreDTO().getMatchScore() == 0 &&
+                playerTwo.getMatchScoreDTO().getMatchScore() == 0;
+    }
 }
-
-
-
-
-
-
-
-//Покроем юнит тестами подсчёт очков в матче. Примеры кейсов:
-//
-//1) Если игрок 1 выигрывает очко при счёте 40-40, гейм не заканчивается
-//
-//3) При счёте 6-6 начинается тайбрейк вместо обычного гейма
