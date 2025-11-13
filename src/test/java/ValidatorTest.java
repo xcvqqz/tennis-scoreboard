@@ -3,8 +3,7 @@ import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
 import io.github.xcvqqz.tennis_scoreboard.util.Validator;
 import org.junit.Test;
 
-
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidatorTest {
 

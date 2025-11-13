@@ -10,13 +10,11 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface PlayerMapper {
 
-
     PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
     Player toEntity(PlayerDTO playerDTO);
-
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")

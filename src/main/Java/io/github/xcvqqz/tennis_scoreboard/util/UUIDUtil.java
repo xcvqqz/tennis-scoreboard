@@ -1,6 +1,5 @@
 package io.github.xcvqqz.tennis_scoreboard.util;
 
-
 import java.util.UUID;
 
 public class UUIDUtil {
@@ -16,6 +15,4 @@ public class UUIDUtil {
         UUID uuid = UUID.fromString(uuidString);
         return uuid;
     }
-
-
 }

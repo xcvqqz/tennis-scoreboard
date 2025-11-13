@@ -20,7 +20,7 @@ public class PlayerService {
     }
 
    private Player createPlayerIfNotExists(String name) {
-       String formattedName = formatName(name);
+        String formattedName = Player.formatName(name);
        return playerRepository.findByName(formattedName)
                .orElseGet(() -> {
                    Player newPlayer = new Player(formattedName);
@@ -28,8 +28,4 @@ public class PlayerService {
                    return newPlayer;
                });
    }
-
-   private String formatName(String name){
-        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase().trim();
-    }
 }

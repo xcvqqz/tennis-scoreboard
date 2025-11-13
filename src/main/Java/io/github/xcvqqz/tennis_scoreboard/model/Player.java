@@ -21,6 +21,13 @@ public class Player {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
@@ -31,5 +38,12 @@ public class Player {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static String formatName(String name){
+        if(name.length() >= 2){
+            return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase().trim();
+        }
+        return name;
     }
 }

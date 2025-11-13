@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-
 @Mapper
 public interface MatchMapper {
 
@@ -17,10 +16,8 @@ public interface MatchMapper {
     @Mapping(source = "winner", target = "winner")
     Match toEntity(MatchDTO matchDTO);
 
-
     @Mapping(source = "playerOne", target = "playerOne")
     @Mapping(source = "playerTwo", target = "playerTwo")
     @Mapping(target = "winner", ignore = true)
     MatchDTO toDTO(Match match);
-
 }

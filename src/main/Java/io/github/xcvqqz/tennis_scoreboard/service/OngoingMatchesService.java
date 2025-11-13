@@ -1,9 +1,5 @@
 package io.github.xcvqqz.tennis_scoreboard.service;
 
-
-
-//хранит текущие матчи и позволяет их записывать/читать
-
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Match;

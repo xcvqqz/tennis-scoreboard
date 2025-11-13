@@ -4,8 +4,7 @@ import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchScoreCalculationServiceTest {
 
@@ -51,26 +50,26 @@ public class MatchScoreCalculationServiceTest {
 
     @Test
     public void shouldWinSetWhenWinningSeventhGame() {
-        playerOne.getMatchScoreDTO().setMatchGame(6);
-        playerOne.getMatchScoreDTO().setMatchScore(40);
-        playerTwo.getMatchScoreDTO().setMatchGame(0);
-        playerTwo.getMatchScoreDTO().setMatchScore(0);
+        playerOne.getMatchScoreDTO().setGames(6);
+        playerOne.getMatchScoreDTO().setPoints(40);
+        playerTwo.getMatchScoreDTO().setGames(0);
+        playerTwo.getMatchScoreDTO().setPoints(0);
 
 
         scoreCalculationService.addPoint(playerOne);
-        assertTrue(playerOne.getMatchScoreDTO().getMatchSet() > 0);
+        assertTrue(playerOne.getMatchScoreDTO().getSets() > 0);
     }
 
 
     @Test
     public void shouldEndMatchAfterWinningTwoSets() {
 
-        playerOne.getMatchScoreDTO().setMatchSet(1);
-        playerOne.getMatchScoreDTO().setMatchGame(6);
-        playerOne.getMatchScoreDTO().setMatchScore(40);
-        playerTwo.getMatchScoreDTO().setMatchSet(0);
-        playerTwo.getMatchScoreDTO().setMatchGame(0);
-        playerTwo.getMatchScoreDTO().setMatchScore(0);
+        playerOne.getMatchScoreDTO().setSets(1);
+        playerOne.getMatchScoreDTO().setGames(6);
+        playerOne.getMatchScoreDTO().setPoints(40);
+        playerTwo.getMatchScoreDTO().setGames(0);
+        playerTwo.getMatchScoreDTO().setGames(0);
+        playerTwo.getMatchScoreDTO().setPoints(0);
 
         scoreCalculationService.addPoint(playerOne);
         assertTrue(match.isMatchOver());
@@ -81,8 +80,10 @@ public class MatchScoreCalculationServiceTest {
     public void shouldSetScoreToFifteenLoveWhenPlayerOneScoresFirstPoint() {
         scoreCalculationService.addPoint(playerOne);
 
-        assertTrue(playerOne.getMatchScoreDTO().getMatchScore() == 15);
-        assertTrue(playerTwo.getMatchScoreDTO().getMatchScore() == 0);
+        assertAll(
+                () -> assertEquals(15, playerOne.getMatchScoreDTO().getPoints()),
+                () -> assertEquals(0, playerTwo.getMatchScoreDTO().getPoints()));
+
     }
 
 
@@ -91,8 +92,8 @@ public class MatchScoreCalculationServiceTest {
 
         match.setOpenTieBreak(true);
 
-        playerOne.getMatchScoreDTO().setTieBreakPoint(9);
-        playerTwo.getMatchScoreDTO().setTieBreakPoint(9);
+        playerOne.getMatchScoreDTO().setTieBreakPoints(9);
+        playerTwo.getMatchScoreDTO().setTieBreakPoints(9);
 
         scoreCalculationService.addPoint(playerOne);
 
@@ -113,22 +114,22 @@ public class MatchScoreCalculationServiceTest {
 
 
     private void setPlayerScores(int playerOneScore, int playerTwoScore) {
-        playerOne.getMatchScoreDTO().setMatchScore(playerOneScore);
-        playerTwo.getMatchScoreDTO().setMatchScore(playerTwoScore);
+        playerOne.getMatchScoreDTO().setPoints(playerOneScore);
+        playerTwo.getMatchScoreDTO().setPoints(playerTwoScore);
     }
 
     private void setPlayerGames(int playerOneGames, int playerTwoGames) {
-        playerOne.getMatchScoreDTO().setMatchGame(playerOneGames);
-        playerTwo.getMatchScoreDTO().setMatchGame(playerTwoGames);
+        playerOne.getMatchScoreDTO().setGames(playerOneGames);
+        playerTwo.getMatchScoreDTO().setGames(playerTwoGames);
     }
 
     private void setTieBreakPoints(int playerOneTieBreakPoints, int playerTwoTieBreakPoints){
-        playerOne.getMatchScoreDTO().setTieBreakPoint(playerOneTieBreakPoints);
-        playerTwo.getMatchScoreDTO().setTieBreakPoint(playerTwoTieBreakPoints);
+        playerOne.getMatchScoreDTO().setTieBreakPoints(playerOneTieBreakPoints);
+        playerTwo.getMatchScoreDTO().setTieBreakPoints(playerTwoTieBreakPoints);
     }
 
     private boolean isGameFinished() {
-        return playerOne.getMatchScoreDTO().getMatchScore() == 0 &&
-                playerTwo.getMatchScoreDTO().getMatchScore() == 0;
+        return playerOne.getMatchScoreDTO().getPoints() == 0 &&
+                playerTwo.getMatchScoreDTO().getPoints() == 0;
     }
 }

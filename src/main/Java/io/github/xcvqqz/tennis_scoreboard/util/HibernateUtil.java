@@ -14,7 +14,6 @@ import java.util.Properties;
 public class HibernateUtil {
 
     private static final Properties hibernateProperties = new Properties();
-    ;
     private static SessionFactory sessionFactory;
     private static final String HIBERNATE_CONFIGURATION_ERROR = "Hibernate Configuration Error";
     private static final String HIBERNATE_CONFIGURATION_PATH = "hibernate.properties";

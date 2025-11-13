@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-
     @WebServlet("/winner-match")
     public class WinnerMatchController extends BasicController {
 
@@ -16,12 +15,7 @@ import java.io.IOException;
 
             String playerWinner = request.getParameter("playerWinner");
             request.setAttribute("playerWinner", playerWinner);
-            request.getRequestDispatcher("/winner-match.jsp").forward(request, response);
-        }
-
-
-        @Override
-        public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+            forwardToWinnerMatch(request, response);
 
         }
     }

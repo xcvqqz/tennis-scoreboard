@@ -17,8 +17,10 @@
 <c:if test="${not empty playerWinner}">
     <p><strong>У НАС ПОЯВИЛСЯ ПОБЕДИТЕЛЬ: ${playerWinner}. ПОЗДРАВЛЯЕМ!!!!</strong></p>
 </c:if>
-
-
+<br>
+<br>
+<a href="new-match">Сыграть новый матч</a>
+<a href="matches">Посмотреть завершённые матчи</a>
 
 </body>
 </html>

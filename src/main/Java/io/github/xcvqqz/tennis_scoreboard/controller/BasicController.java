@@ -38,4 +38,8 @@ public class BasicController extends HttpServlet {
     protected void sendRedirectToWinnerMatch(HttpServletRequest request, HttpServletResponse response, String playerName) throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" + playerName);
     }
+
+    protected void forwardToWinnerMatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/winner-match.jsp").forward(request, response);
+    }
 }
