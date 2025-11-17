@@ -1,7 +1,12 @@
 package io.github.xcvqqz.tennis_scoreboard.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "Matches")
 public class Match {
@@ -23,33 +28,4 @@ public class Match {
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 
-    public Match(Player playerOne, Player playerTwo, Player winner) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.winner = winner;
-    }
-
-    public Match() {}
-
-
-
-    public Player getPlayerOne() {return playerOne;}
-    public void setPlayerOne(Player playerOne) {this.playerOne = playerOne;}
-    public Player getPlayerTwo() {return playerTwo;}
-    public void setPlayerTwo(Player playerTwo) {this.playerTwo = playerTwo;}
-    public Player getWinner() {return winner;}
-    public void setWinner(Player winner) {this.winner = winner;}
-
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-
-    @Override
-    public String toString() {
-        return "Match{" +
-                "id=" + id +
-                ", playerOne=" + playerOne +
-                ", playerTwo=" + playerTwo +
-                ", winner=" + winner +
-                '}';
-    }
 }

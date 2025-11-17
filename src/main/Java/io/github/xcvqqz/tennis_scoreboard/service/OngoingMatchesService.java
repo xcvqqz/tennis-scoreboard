@@ -30,7 +30,10 @@ public class OngoingMatchesService {
     }
 
     private MatchDTO createNewMatchDTO(PlayerDTO playerOneDTO, PlayerDTO playerTwoDTO){
-        MatchDTO matchDTO = matchMapper.toDTO(new Match());
+        MatchDTO matchDTO = matchMapper.toDTO(Match
+                .builder()
+                .build());
+
         matchDTO.setPlayerOne(playerOneDTO);
         matchDTO.setPlayerTwo(playerTwoDTO);
         return matchDTO;

@@ -15,10 +15,15 @@ public class MatchScoreCalculationServiceTest {
 
     @Before
     public void setUp() {
-        playerOne = new PlayerDTO();
-        playerTwo = new PlayerDTO();
-        match = new MatchDTO(playerOne, playerTwo);
+        playerOne = PlayerDTO.builder().build();
+        playerTwo = PlayerDTO.builder().build();
+        match = MatchDTO.builder().
+                playerOne(playerOne).
+                playerTwo(playerTwo).
+                build();
+
         scoreCalculationService = new MatchScoreCalculationService(match);
+
     }
 
 

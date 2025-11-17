@@ -23,7 +23,10 @@ public class PlayerService {
         String formattedName = Player.formatName(name);
        return playerRepository.findByName(formattedName)
                .orElseGet(() -> {
-                   Player newPlayer = new Player(formattedName);
+                   Player newPlayer = Player.builder()
+                           .name(formattedName)
+                           .build();
+
                    playerRepository.save(newPlayer);
                    return newPlayer;
                });
