@@ -1,9 +1,8 @@
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchScoreCalculationServiceTest {
@@ -13,19 +12,22 @@ public class MatchScoreCalculationServiceTest {
     private PlayerDTO playerOne;
     private PlayerDTO playerTwo;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         playerOne = PlayerDTO.builder().build();
         playerTwo = PlayerDTO.builder().build();
+
         match = MatchDTO.builder().
                 playerOne(playerOne).
                 playerTwo(playerTwo).
                 build();
 
-        scoreCalculationService = new MatchScoreCalculationService(match);
+        scoreCalculationService = MatchScoreCalculationService
+                .builder()
+                .matchDTO(match)
+                .build();
 
     }
-
 
     @Test
     public void shouldContinueGameWhenPlayerScoresAtDeuce() {

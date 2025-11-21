@@ -4,17 +4,17 @@ import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.model.Match;
 import io.github.xcvqqz.tennis_scoreboard.util.mapper.MatchMapper;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@NoArgsConstructor
 public class OngoingMatchesService {
 
     private static final Map<UUID, MatchDTO> ongoingMatches = new HashMap<>();
     private MatchMapper matchMapper = MatchMapper.INSTANCE;
-
-    public OngoingMatchesService(){}
 
     public void createNewOngoingMatch(UUID uuid, PlayerDTO playerOneDTO, PlayerDTO playerTwoDTO){
         MatchDTO matchDTO = createNewMatchDTO(playerOneDTO, playerTwoDTO);

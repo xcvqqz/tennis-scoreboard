@@ -1,6 +1,5 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
-
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +7,6 @@ import jakarta.servlet.http.*;
 import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
 import java.io.IOException;
 import java.util.UUID;
-
 
 @WebServlet("/match-score")
 public class MatchScoreController extends BasicController {

@@ -3,7 +3,10 @@ package io.github.xcvqqz.tennis_scoreboard.service;
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.MatchScoreDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
+import lombok.*;
 
+@AllArgsConstructor
+@Builder
 public class MatchScoreCalculationService {
 
     private final MatchDTO matchDTO;
@@ -16,10 +19,6 @@ public class MatchScoreCalculationService {
     private static final int TIEBREAK_WINNER_POINTS = 7;
     private static final int INCREMENT_VALUE = 1;
     private static final int TIEBREAK_SITUATION_POINTS = 6;
-
-    public MatchScoreCalculationService(MatchDTO matchDTO) {
-        this.matchDTO = matchDTO;
-    }
 
     public void addPoint(PlayerDTO getsPlayerPoint) {
 
@@ -43,6 +42,7 @@ public class MatchScoreCalculationService {
 
         if (scoringSide.getPoints() == FORTY_SCORE_POINTS) {
             if(isDeuceSituation(scoringSide, opposingSide)) {
+                matchDTO.setDeuceSituation(true);
                 handleDeuceSituation(scoringSide, opposingSide);
                 return;
             }
@@ -96,6 +96,7 @@ public class MatchScoreCalculationService {
         if(scoringSide.isHasAdvantage()) {
             resetAdvantage(scoringSide, opposingSide);
             winGame(scoringSide, opposingSide);
+            matchDTO.setDeuceSituation(false);
             return;
         }
         if (opposingSide.isHasAdvantage()){
@@ -134,6 +135,8 @@ public class MatchScoreCalculationService {
                 opposingSide.setGames(RESET_SCORE);
                 scoringSide.setGames(RESET_SCORE);
                 opposingSide.setGames(RESET_SCORE);
+                scoringSide.setTieBreakPoints(RESET_SCORE);
+                opposingSide.setTieBreakPoints(RESET_SCORE);
                 matchDTO.setOpenTieBreak(false);
                 checkMatchWin(scoringSide,opposingSide);}
     }

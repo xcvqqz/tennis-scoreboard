@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.xcvqqz.tennis-scoreboard</groupId>
   <artifactId>tennis-scoreboard</artifactId>
@@ -12,87 +12,76 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mapstruct>1.6.3</mapstruct>
-    <jUnit>5.13.4</jUnit>
-    <h2database>2.3.232</h2database>
-    <hibernate-core>7.0.9.Final</hibernate-core>
-    <jakarta.servlet-api>6.1.0</jakarta.servlet-api>
-    <jakarta.servlet.jsp.jstl-api>3.0.0</jakarta.servlet.jsp.jstl-api>
-    <org.glassfish.web>3.0.1</org.glassfish.web>
-    <HikariCP>7.0.9.Final</HikariCP>
-    <lombok>1.18.34</lombok>
+    <mapstruct.version>1.6.3</mapstruct.version>
+    <jUnit.version>5.13.4</jUnit.version>
+    <h2database.version>2.3.232</h2database.version>
+    <hibernate-core.version>6.4.4.Final</hibernate-core.version>
+    <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+    <jakarta.servlet.jsp.jstl-api.version>3.0.0</jakarta.servlet.jsp.jstl-api.version>
+    <org.glassfish.web.version>3.0.1</org.glassfish.web.version>
+    <hikariCP.version>7.0.0</hikariCP.version>
+    <lombok.version>1.18.34</lombok.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${jUnit}</version>
+      <version>${jUnit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${jUnit}</version>
+      <version>${jUnit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>${h2database}</version>
+      <version>${h2database.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>${hibernate-core}</version>
+      <version>${hibernate-core.version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
-      <version>${jakarta.servlet-api}</version>
+      <version>${jakarta.servlet-api.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-      <version>${jakarta.servlet.jsp.jstl-api}</version>
+      <version>${jakarta.servlet.jsp.jstl-api.version}</version>
     </dependency>
     <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-      <version>${org.glassfish.web}</version>
+      <version>${org.glassfish.web.version}</version>
     </dependency>
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>7.0.0</version>
+      <version>${hikariCP.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>${lombok}</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
-      <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct</artifactId>
-        <version>${mapstruct}</version>
-      </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.mapstruct</groupId>-->
-<!--      <artifactId>mapstruct-processor</artifactId>-->
-<!--      <version>${mapstruct}</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${mapstruct.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-hikaricp</artifactId>
-      <version>${HikariCP}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>RELEASE</version>
-      <scope>test</scope>
+      <version>${hibernate-core.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -108,18 +97,16 @@
             <path>
               <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
-              <version>${lombok}</version>
+              <version>${lombok.version}</version>
             </path>
             <path>
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
-              <version>${mapstruct}</version>
+              <version>${mapstruct.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
-
 </project>

@@ -1,7 +1,6 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
 import io.github.xcvqqz.tennis_scoreboard.dto.PaginationResponseDTO;
-import io.github.xcvqqz.tennis_scoreboard.util.Validator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +16,6 @@ public class FinishedMatchesController extends BasicController {
 
         Long page = Long.parseLong(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
-
-        Validator.validate(page, playerName);
 
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
 

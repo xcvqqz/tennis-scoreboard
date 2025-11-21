@@ -1,8 +1,7 @@
 import io.github.xcvqqz.tennis_scoreboard.exception.BadRequestException;
 import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
 import io.github.xcvqqz.tennis_scoreboard.util.Validator;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidatorTest {

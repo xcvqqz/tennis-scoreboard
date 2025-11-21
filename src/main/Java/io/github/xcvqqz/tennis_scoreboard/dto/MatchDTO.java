@@ -1,10 +1,6 @@
 package io.github.xcvqqz.tennis_scoreboard.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +16,7 @@ public class MatchDTO {
     private PlayerDTO winner = null;
     @Builder.Default
     private boolean openTieBreak = false;
-
-
+    @Builder.Default
+    private boolean deuceSituation = false;
 
 }

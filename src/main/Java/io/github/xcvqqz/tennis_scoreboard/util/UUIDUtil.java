@@ -1,10 +1,11 @@
 package io.github.xcvqqz.tennis_scoreboard.util;
 
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
+@NoArgsConstructor
 public class UUIDUtil {
-
-    public UUIDUtil() {}
 
     public UUID getNewUUID() {
         UUID uuid = UUID.randomUUID();

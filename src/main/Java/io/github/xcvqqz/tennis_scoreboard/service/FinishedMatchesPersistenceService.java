@@ -13,7 +13,7 @@ public class FinishedMatchesPersistenceService {
 
     private final MatchRepository matchRepository = new MatchRepository();
     private final MatchMapper matchMapper = MatchMapper.INSTANCE;
-    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int DEFAULT_PAGE_SIZE = 5;
 
     public FinishedMatchesPersistenceService() {}
 
@@ -26,21 +26,16 @@ public class FinishedMatchesPersistenceService {
 
         String formattedName = Player.formatName(playerName);
 
-        //1. сколько в себя вмещает одна страница
         int pageSize = DEFAULT_PAGE_SIZE;
 
-        // 4. Вычисляем сдвиг (offset) для SQL
         int offset = (int) (currentPage - 1) * DEFAULT_PAGE_SIZE;
 
-        // 2. Получаем общее количество матчей по фильтру
-        Long totalMatches = matchRepository.countFinishedMatches(formattedName, offset, pageSize);
+        Long totalMatches = matchRepository.countFinishedMatches(formattedName);
 
-        // 3. Вычисляем общее количество страниц
         Long totalPages = (long) Math.ceil((double) totalMatches / DEFAULT_PAGE_SIZE);
 
         List<Match> matches =  matchRepository.findFinishedMatches(formattedName,  offset, pageSize);
 
         return new PaginationResponseDTO(matches, totalPages);
-
     }
 }

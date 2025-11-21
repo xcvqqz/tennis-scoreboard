@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class BasicController extends HttpServlet {
@@ -23,7 +25,7 @@ public class BasicController extends HttpServlet {
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
     }
 
-    protected void sendRedirectToMatchScore(HttpServletRequest request, HttpServletResponse response, UUID uuid) throws ServletException, IOException {
+    protected void sendRedirectToMatchScore(HttpServletRequest request, HttpServletResponse response, UUID uuid) throws IOException {
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + uuid);
     }
 
@@ -35,11 +37,16 @@ public class BasicController extends HttpServlet {
         request.getRequestDispatcher("/matches.jsp").forward(request, response);
     }
 
-    protected void sendRedirectToWinnerMatch(HttpServletRequest request, HttpServletResponse response, String playerName) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" + playerName);
+    protected void sendRedirectToWinnerMatch(HttpServletRequest request, HttpServletResponse response, String playerName) throws  IOException {
+        response.sendRedirect(request.getContextPath() + "/winner-match?playerWinner=" +
+                URLEncoder.encode(playerName, StandardCharsets.UTF_8));
     }
 
     protected void forwardToWinnerMatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/winner-match.jsp").forward(request, response);
+    }
+
+    protected void forwardToIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

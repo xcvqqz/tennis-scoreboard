@@ -11,10 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-
 @WebFilter("/new-match")
 public class ExceptionHandlingFilter extends HttpFilter {
-
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -28,7 +26,6 @@ public class ExceptionHandlingFilter extends HttpFilter {
             sendError(request, response, e, HttpServletResponse.SC_CONFLICT);
         }
     }
-
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, Exception e, int status) throws IOException, ServletException {
         response.setStatus(status);

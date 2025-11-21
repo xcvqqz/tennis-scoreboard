@@ -1,16 +1,13 @@
 package io.github.xcvqqz.tennis_scoreboard.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class MatchScoreDTO {
+
     @Builder.Default
     private int points = 0;
     @Builder.Default
@@ -21,6 +18,5 @@ public class MatchScoreDTO {
     private int tieBreakPoints = 0;
     @Builder.Default
     private boolean hasAdvantage = false;
+
 }
-
-

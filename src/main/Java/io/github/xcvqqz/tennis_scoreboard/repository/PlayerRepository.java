@@ -7,18 +7,6 @@ import java.util.Optional;
 
 public class PlayerRepository {
 
-
-
-    public Player findById(int id){
-    Player player;
-    try(Session session = HibernateUtil.getSessionFactory().openSession()){
-           player = session.find(Player.class, id);
-           session.getTransaction().commit();
-    }
-     return player;
-}
-
-
 public Optional<Player> findByName(String name) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Player player = session.createQuery("FROM Player WHERE name = :name", Player.class)
@@ -27,7 +15,6 @@ public Optional<Player> findByName(String name) {
             return Optional.ofNullable(player);
         }
     }
-
 
     public void save(Player player){
     try(Session session = HibernateUtil.getSessionFactory().openSession()){

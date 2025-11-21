@@ -7,15 +7,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-    @WebServlet("/winner-match")
-    public class WinnerMatchController extends BasicController {
+@WebServlet("/winner-match")
+public class WinnerMatchController extends BasicController {
 
-        @Override
-        public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-            String playerWinner = request.getParameter("playerWinner");
-            request.setAttribute("playerWinner", playerWinner);
-            forwardToWinnerMatch(request, response);
-
-        }
+        String playerWinner = request.getParameter("playerWinner");
+        request.setAttribute("playerWinner", playerWinner);
+        forwardToWinnerMatch(request, response);
     }
+}

@@ -9,16 +9,6 @@ import java.util.List;
 
 public class MatchRepository {
 
-    public Match findById(int id){
-        Match match;
-
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            match = session.find(Match.class, id);
-            session.getTransaction().commit();
-        }
-        return match;
-    }
-
     public void save(Match match){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
@@ -27,7 +17,7 @@ public class MatchRepository {
         }
     }
 
-    public Long countFinishedMatches(String playerName, int offset, int limit) {
+    public Long countFinishedMatches(String playerName) {
 
         StringBuilder sb = new StringBuilder("SELECT COUNT(m) FROM Match m");
 
@@ -41,13 +31,10 @@ public class MatchRepository {
             if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
                 query.setParameter("playerName", playerName);
             }
-            return query.
-                    setFirstResult(offset).
-                    setMaxResults(limit).
-                    getSingleResult();
+
+            return query.getResultStream().findFirst().orElse(0L);
         }
     }
-
 
         public List<Match> findFinishedMatches(String playerName, int offset, int limit){
 

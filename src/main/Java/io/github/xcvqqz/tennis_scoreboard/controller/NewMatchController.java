@@ -1,18 +1,13 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
-import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
-import io.github.xcvqqz.tennis_scoreboard.dto.MatchScoreDTO;
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
-import io.github.xcvqqz.tennis_scoreboard.model.Player;
 import io.github.xcvqqz.tennis_scoreboard.util.Validator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
 
 import java.io.IOException;
 import java.util.UUID;
-
 
 @WebServlet("/new-match")
 public class NewMatchController extends BasicController {
@@ -23,7 +18,7 @@ public class NewMatchController extends BasicController {
     }
 
     @Override
-    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String playerOneName = request.getParameter("playerOneName");
         String playerTwoName = request.getParameter("playerTwoName");

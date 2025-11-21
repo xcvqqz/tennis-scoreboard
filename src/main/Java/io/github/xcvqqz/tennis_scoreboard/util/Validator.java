@@ -2,19 +2,18 @@ package io.github.xcvqqz.tennis_scoreboard.util;
 
 import io.github.xcvqqz.tennis_scoreboard.exception.BadRequestException;
 import io.github.xcvqqz.tennis_scoreboard.exception.DuplicateNameException;
+import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
 
+@NoArgsConstructor
 public class Validator {
 
     private static final Pattern SYMBOL_VALIDATION_PATTERN = Pattern.compile("^[a-zA-Zа-яА-ЯёЁ]+$");
     private static final String MISSING_PARAMETER_MESSAGE = "Missing parameter - ";
     private static final String INVALID_NAME_LENGTH_MESSAGE = "The name must be at least 3 characters and no more than 30 characters long.";
     private static final String INVALID_FORMAT_NAME_MESSAGE = "The name must be in Russian or English only, without extra symbols";
-    private static final String INVALID_START_PAGE_PARAMETER_MESSAGE = "Page numbering starts from number 1";
     private static final String DUPLICATE_NAME_MESSAGE = "Player 1's name matches Player 2's name. Player names must be unique";
-
-    public Validator(){}
 
     public static void validate(String name) {
         if (name == null || name.isBlank()) {
@@ -28,19 +27,6 @@ public class Validator {
         if (!SYMBOL_VALIDATION_PATTERN.matcher(name).matches()){
             throw new BadRequestException(INVALID_FORMAT_NAME_MESSAGE);
         }
-    }
-
-        public static void validate(Long page, String name) {
-
-            if(page < 1){
-                throw new BadRequestException(INVALID_START_PAGE_PARAMETER_MESSAGE);
-            }
-
-            if(name.isBlank()){
-                return;
-            }
-
-            validate(name);
     }
 
     public static void validateNamesUniqueness(String namePlayerOne, String namePlayerTwo) {

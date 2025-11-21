@@ -4,15 +4,18 @@ import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
 import io.github.xcvqqz.tennis_scoreboard.model.Player;
 import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlayerService {
 
-    private PlayerRepository playerRepository;
+    @Builder.Default
+    private PlayerRepository playerRepository = new PlayerRepository();
     private PlayerMapper playerMapper = PlayerMapper.INSTANCE;
-
-    public PlayerService(){
-        this.playerRepository = new PlayerRepository();
-    }
 
     public PlayerDTO createOrGetPlayerDTO(String name){
         Player player = createPlayerIfNotExists(name);
