@@ -14,7 +14,7 @@ public class FinishedMatchesController extends BasicController {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        Long page = Long.parseLong(request.getParameter("page"));
+        Long page = parsePageParameter(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
 
         PaginationResponseDTO paginationResponseDTO = finishedMatchesPersistenceService.getFinishedMatches(playerName, page);
@@ -25,5 +25,14 @@ public class FinishedMatchesController extends BasicController {
         request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
 
         forwardToFinishedMatches(request, response);
+    }
+
+    private Long parsePageParameter(String pageParam) {
+        try {
+            Long page = Long.parseLong(pageParam);
+            return page < 1 ? 1L : page;
+        } catch (NumberFormatException e) {
+            return 1L;
+        }
     }
 }

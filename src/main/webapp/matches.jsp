@@ -75,7 +75,7 @@
         }
     </style>
 
-    <script src="js/app.js"></script>
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </head>
 
 <body>

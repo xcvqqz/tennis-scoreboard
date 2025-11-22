@@ -28,6 +28,11 @@ public class MatchesParamFilter extends HttpFilter {
 
                     if (name.equals("page")) {
                         String page = super.getParameter("page");
+                        return (page == null)  ? "1" : page;
+                    }
+
+                    if (name.equals("page")) {
+                        String page = super.getParameter("page");
                         return (page == null) ? "1" : page;
                     }
                     return super.getParameter(name);

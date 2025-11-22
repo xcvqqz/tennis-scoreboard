@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="js/app.js"></script>
+    <script src=${pageContext.request.contextPath}/js/app.js"></script>
 </head>
 <body>
 <header class="header">
