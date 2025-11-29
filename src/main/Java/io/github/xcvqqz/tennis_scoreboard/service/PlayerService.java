@@ -23,11 +23,10 @@ public class PlayerService {
     }
 
    private Player createPlayerIfNotExists(String name) {
-        String formattedName = Player.formatName(name);
-       return playerRepository.findByName(formattedName)
+       return playerRepository.findByName(name)
                .orElseGet(() -> {
                    Player newPlayer = Player.builder()
-                           .name(formattedName)
+                           .name(name)
                            .build();
 
                    playerRepository.save(newPlayer);
