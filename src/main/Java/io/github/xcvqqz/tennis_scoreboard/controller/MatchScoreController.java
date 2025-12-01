@@ -1,6 +1,6 @@
 package io.github.xcvqqz.tennis_scoreboard.controller;
 
-import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
+import io.github.xcvqqz.tennis_scoreboard.domain_model.OngoingMatch;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -15,9 +15,9 @@ public class MatchScoreController extends BasicController {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
-        MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
+        OngoingMatch ongoingMatch= ongoingMatchesService.getOngoingMatch(uuid);
 
-        request.setAttribute("match", match);
+        request.setAttribute("match", ongoingMatch);
         request.setAttribute("uuid", uuid);
 
         forwardToMatchScore(request, response);
@@ -29,15 +29,16 @@ public class MatchScoreController extends BasicController {
         String playerName = request.getParameter("playerName");
         UUID uuid = uuidUtil.parseUUID(request.getParameter("uuid"));
 
-        MatchDTO match = ongoingMatchesService.getOngoingMatch(uuid);
-        MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(match);
+        OngoingMatch ongoingMatch = ongoingMatchesService.getOngoingMatch(uuid);
+        MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService(ongoingMatch);
 
-        boolean isPlayerOne = playerName.equals(match.getPlayerOne().getName());
-        matchScoreCalculationService.addPoint(isPlayerOne ? match.getPlayerOne() : match.getPlayerTwo());
+        boolean isPlayerOne = playerName.equals(ongoingMatch.getPlayerOne().getName());
 
-        if(match.isMatchOver()){
-            finishedMatchesPersistenceService.save(match);
-            ongoingMatchesService.deleteOngoingMatch(match);
+        matchScoreCalculationService.addPoint(isPlayerOne ? ongoingMatch.getPlayerOneScore() : ongoingMatch.getPlayerTwoScore());
+
+        if(ongoingMatch.isMatchOver()){
+            finishedMatchesPersistenceService.save(ongoingMatch);
+            ongoingMatchesService.deleteOngoingMatch(ongoingMatch);
             request.setAttribute("playerWinner", playerName);
             sendRedirectToWinnerMatch(request, response, playerName);
         } else {

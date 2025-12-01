@@ -119,15 +119,15 @@
                 <tbody>
                 <tr class="player1">
                     <td class="table-text">${match.playerOne.name}</td>
-                    <td class="table-text"><c:out value="${match.playerOne.matchScoreDTO.sets}"/></td>
-                    <td class="table-text"><c:out value="${match.playerOne.matchScoreDTO.games}"/></td>
-                    <td class="table-text"><c:out value="${match.playerOne.matchScoreDTO.points}"/></td>
+                    <td class="table-text"><c:out value="${match.playerOneScore.sets}"/></td>
+                    <td class="table-text"><c:out value="${match.playerOneScore.games}"/></td>
+                    <td class="table-text"><c:out value="${match.playerOneScore.points}"/></td>
                 </tr>
                 <tr class="player2">
                     <td class="table-text">${match.playerTwo.name}</td>
-                    <td class="table-text"><c:out value="${match.playerTwo.matchScoreDTO.sets}"/></td>
-                    <td class="table-text"><c:out value="${match.playerTwo.matchScoreDTO.games}"/></td>
-                    <td class="table-text"><c:out value="${match.playerTwo.matchScoreDTO.points}"/></td>
+                    <td class="table-text"><c:out value="${match.playerTwoScore.sets}"/></td>
+                    <td class="table-text"><c:out value="${match.playerTwoScore.games}"/></td>
+                    <td class="table-text"><c:out value="${match.playerTwoScore.points}"/></td>
                 </tr>
                 </tbody>
             </table>
@@ -160,8 +160,8 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="advantage-status">${match.playerOne.matchScoreDTO.hasAdvantage ? 'ADVANTAGE' : 'DEUCE'}</td>
-                            <td class="advantage-status">${match.playerTwo.matchScoreDTO.hasAdvantage ? 'ADVANTAGE' : 'DEUCE'}</td>
+                            <td class="advantage-status">${match.playerOneScore.hasAdvantage ? 'ADVANTAGE' : 'DEUCE'}</td>
+                            <td class="advantage-status">${match.playerTwoScore.hasAdvantage ? 'ADVANTAGE' : 'DEUCE'}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -181,8 +181,8 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="tiebreak-points"><c:out value="${match.playerOne.matchScoreDTO.tieBreakPoints}"/></td>
-                            <td class="tiebreak-points"><c:out value="${match.playerTwo.matchScoreDTO.tieBreakPoints}"/></td>
+                            <td class="tiebreak-points"><c:out value="${match.playerOneScore.tieBreakPoints}"/></td>
+                            <td class="tiebreak-points"><c:out value="${match.playerTwoScore.tieBreakPoints}"/></td>
                         </tr>
                         </tbody>
                     </table>

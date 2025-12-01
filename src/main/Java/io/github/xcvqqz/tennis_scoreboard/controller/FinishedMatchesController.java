@@ -21,8 +21,8 @@ public class FinishedMatchesController extends BasicController {
 
         request.setAttribute("page", page);
         request.setAttribute("playerName", playerName);
-        request.setAttribute("matches", paginationResponseDTO.getMatches());
-        request.setAttribute("totalPages", paginationResponseDTO.getTotalPage());
+        request.setAttribute("matches", paginationResponseDTO.matches());
+        request.setAttribute("totalPages", paginationResponseDTO.totalPage());
 
         forwardToFinishedMatches(request, response);
     }

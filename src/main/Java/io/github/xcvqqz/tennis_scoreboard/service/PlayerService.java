@@ -2,8 +2,8 @@ package io.github.xcvqqz.tennis_scoreboard.service;
 
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
 import io.github.xcvqqz.tennis_scoreboard.repository.PlayerRepository;
-import io.github.xcvqqz.tennis_scoreboard.model.Player;
-import io.github.xcvqqz.tennis_scoreboard.util.mapper.PlayerMapper;
+import io.github.xcvqqz.tennis_scoreboard.entity.Player;
+import io.github.xcvqqz.tennis_scoreboard.mapper.entity_mapper.PlayerMapper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -29,8 +29,7 @@ public class PlayerService {
                            .name(name)
                            .build();
 
-                   playerRepository.save(newPlayer);
-                   return newPlayer;
+                  return playerRepository.save(newPlayer).get();
                });
    }
 }

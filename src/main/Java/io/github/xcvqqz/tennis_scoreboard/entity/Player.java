@@ -1,4 +1,4 @@
-package io.github.xcvqqz.tennis_scoreboard.model;
+package io.github.xcvqqz.tennis_scoreboard.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,10 +16,10 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",unique = true)
+    @Column(name = "name",unique = true, nullable = false)
     private String name;
 
-    public static String formatName(String name){
+    public static String normalizeName(String name){
         if(name.length() >= 2){
             return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase().trim();
         }

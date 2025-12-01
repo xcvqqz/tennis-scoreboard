@@ -1,8 +1,8 @@
-package io.github.xcvqqz.tennis_scoreboard.util.mapper;
+package io.github.xcvqqz.tennis_scoreboard.mapper.entity_mapper;
 
 
 import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
-import io.github.xcvqqz.tennis_scoreboard.model.Player;
+import io.github.xcvqqz.tennis_scoreboard.entity.Player;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

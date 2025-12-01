@@ -1,5 +1,5 @@
-import io.github.xcvqqz.tennis_scoreboard.dto.MatchDTO;
-import io.github.xcvqqz.tennis_scoreboard.dto.PlayerDTO;
+import io.github.xcvqqz.tennis_scoreboard.domain_model.OngoingMatch;
+import io.github.xcvqqz.tennis_scoreboard.entity.Player;
 import io.github.xcvqqz.tennis_scoreboard.service.MatchScoreCalculationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,33 +7,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchScoreCalculationServiceTest {
 
-    private MatchDTO match;
+    private OngoingMatch ongoingMatch;
     private MatchScoreCalculationService scoreCalculationService;
-    private PlayerDTO playerOne;
-    private PlayerDTO playerTwo;
+    private Player playerOne;
+    private Player playerTwo;
 
     @BeforeEach
     public void setUp() {
-        playerOne = PlayerDTO.builder().build();
-        playerTwo = PlayerDTO.builder().build();
+        playerOne = Player.builder().build();
+        playerTwo = Player.builder().build();
 
-        match = MatchDTO.builder().
+        ongoingMatch = OngoingMatch.builder().
                 playerOne(playerOne).
                 playerTwo(playerTwo).
                 build();
 
         scoreCalculationService = MatchScoreCalculationService
                 .builder()
-                .matchDTO(match)
+                .ongoingMatch(ongoingMatch)
                 .build();
-
     }
 
     @Test
     public void shouldContinueGameWhenPlayerScoresAtDeuce() {
         setPlayerScores(40, 40);
 
-        scoreCalculationService.addPoint(playerOne);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
         assertFalse(isGameFinished());
     }
 
@@ -42,54 +41,54 @@ public class MatchScoreCalculationServiceTest {
     public void shouldWinGameWhenScoringAtFortyLove() {
         setPlayerScores(40, 0);
 
-        scoreCalculationService.addPoint(playerOne);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
         assertTrue(isGameFinished());
     }
 
     @Test
     public void shouldStartTiebreakAtSixSix() {
-        setPlayerGames(6, 6);
+        setPlayerGames(5, 5);
 
-        scoreCalculationService.addPoint(playerOne);
-        assertTrue(match.isOpenTieBreak());
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
+        assertTrue(ongoingMatch.isOpenTieBreak());
     }
 
 
     @Test
     public void shouldWinSetWhenWinningSeventhGame() {
-        playerOne.getMatchScoreDTO().setGames(6);
-        playerOne.getMatchScoreDTO().setPoints(40);
-        playerTwo.getMatchScoreDTO().setGames(0);
-        playerTwo.getMatchScoreDTO().setPoints(0);
+        ongoingMatch.getPlayerOneScore().setGames(5);
+        ongoingMatch.getPlayerOneScore().setPoints(40);
+        ongoingMatch.getPlayerTwoScore().setGames(0);
+        ongoingMatch.getPlayerTwoScore().setPoints(0);
 
 
-        scoreCalculationService.addPoint(playerOne);
-        assertTrue(playerOne.getMatchScoreDTO().getSets() > 0);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
+        assertTrue(ongoingMatch.getPlayerOneScore().getSets() > 0);
     }
 
 
     @Test
     public void shouldEndMatchAfterWinningTwoSets() {
 
-        playerOne.getMatchScoreDTO().setSets(1);
-        playerOne.getMatchScoreDTO().setGames(6);
-        playerOne.getMatchScoreDTO().setPoints(40);
-        playerTwo.getMatchScoreDTO().setGames(0);
-        playerTwo.getMatchScoreDTO().setGames(0);
-        playerTwo.getMatchScoreDTO().setPoints(0);
+        ongoingMatch.getPlayerOneScore().setSets(1);
+        ongoingMatch.getPlayerOneScore().setGames(5);
+        ongoingMatch.getPlayerOneScore().setPoints(40);
+        ongoingMatch.getPlayerTwoScore().setGames(0);
+        ongoingMatch.getPlayerTwoScore().setGames(0);
+        ongoingMatch.getPlayerTwoScore().setPoints(0);
 
-        scoreCalculationService.addPoint(playerOne);
-        assertTrue(match.isMatchOver());
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
+        assertTrue(ongoingMatch.isMatchOver());
     }
 
 
     @Test
     public void shouldSetScoreToFifteenLoveWhenPlayerOneScoresFirstPoint() {
-        scoreCalculationService.addPoint(playerOne);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
 
         assertAll(
-                () -> assertEquals(15, playerOne.getMatchScoreDTO().getPoints()),
-                () -> assertEquals(0, playerTwo.getMatchScoreDTO().getPoints()));
+                () -> assertEquals(15, ongoingMatch.getPlayerOneScore().getPoints()),
+                () -> assertEquals(0, ongoingMatch.getPlayerTwoScore().getPoints()));
 
     }
 
@@ -97,46 +96,46 @@ public class MatchScoreCalculationServiceTest {
     @Test
     public void shouldNotEndTiebreakWhenLeadIsOnlyOnePoint(){
 
-        match.setOpenTieBreak(true);
+        ongoingMatch.setOpenTieBreak(true);
 
-        playerOne.getMatchScoreDTO().setTieBreakPoints(9);
-        playerTwo.getMatchScoreDTO().setTieBreakPoints(9);
+        ongoingMatch.getPlayerOneScore().setTieBreakPoints(9);
+        ongoingMatch.getPlayerTwoScore().setTieBreakPoints(9);
 
-        scoreCalculationService.addPoint(playerOne);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
 
-        assertTrue(match.isOpenTieBreak());
+        assertTrue(ongoingMatch.isOpenTieBreak());
     }
 
 
     @Test
     public void shouldEndTiebreakWhenLeadIsTwoPoint(){
 
-        match.setOpenTieBreak(true);
+        ongoingMatch.setOpenTieBreak(true);
         setTieBreakPoints(10,9);
 
-        scoreCalculationService.addPoint(playerOne);
+        scoreCalculationService.addPoint(ongoingMatch.getPlayerOneScore());
 
-        assertFalse(match.isOpenTieBreak());
+        assertFalse(ongoingMatch.isOpenTieBreak());
     }
 
 
     private void setPlayerScores(int playerOneScore, int playerTwoScore) {
-        playerOne.getMatchScoreDTO().setPoints(playerOneScore);
-        playerTwo.getMatchScoreDTO().setPoints(playerTwoScore);
+        ongoingMatch.getPlayerOneScore().setPoints(playerOneScore);
+        ongoingMatch.getPlayerTwoScore().setPoints(playerTwoScore);
     }
 
     private void setPlayerGames(int playerOneGames, int playerTwoGames) {
-        playerOne.getMatchScoreDTO().setGames(playerOneGames);
-        playerTwo.getMatchScoreDTO().setGames(playerTwoGames);
+        ongoingMatch.getPlayerOneScore().setGames(playerOneGames);
+        ongoingMatch.getPlayerTwoScore().setGames(playerTwoGames);
     }
 
     private void setTieBreakPoints(int playerOneTieBreakPoints, int playerTwoTieBreakPoints){
-        playerOne.getMatchScoreDTO().setTieBreakPoints(playerOneTieBreakPoints);
-        playerTwo.getMatchScoreDTO().setTieBreakPoints(playerTwoTieBreakPoints);
+        ongoingMatch.getPlayerOneScore().setTieBreakPoints(playerOneTieBreakPoints);
+        ongoingMatch.getPlayerTwoScore().setTieBreakPoints(playerTwoTieBreakPoints);
     }
 
     private boolean isGameFinished() {
-        return playerOne.getMatchScoreDTO().getPoints() == 0 &&
-                playerTwo.getMatchScoreDTO().getPoints() == 0;
+        return ongoingMatch.getPlayerOneScore().getPoints() == 0 &&
+                ongoingMatch.getPlayerTwoScore().getPoints() == 0;
     }
 }

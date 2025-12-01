@@ -1,4 +1,4 @@
-package io.github.xcvqqz.tennis_scoreboard.model;
+package io.github.xcvqqz.tennis_scoreboard.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

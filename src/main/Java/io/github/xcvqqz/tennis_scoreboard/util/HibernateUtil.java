@@ -1,8 +1,8 @@
 package io.github.xcvqqz.tennis_scoreboard.util;
 
 import io.github.xcvqqz.tennis_scoreboard.exception.DataBaseException;
-import io.github.xcvqqz.tennis_scoreboard.model.Match;
-import io.github.xcvqqz.tennis_scoreboard.model.Player;
+import io.github.xcvqqz.tennis_scoreboard.entity.Match;
+import io.github.xcvqqz.tennis_scoreboard.entity.Player;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
