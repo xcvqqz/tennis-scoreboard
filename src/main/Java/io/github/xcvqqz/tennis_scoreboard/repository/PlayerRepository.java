@@ -11,10 +11,9 @@ public class PlayerRepository {
 
     public Optional<Player> findByName(String name) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Player player = session.createQuery(FIND_PLAYER_BY_NAME_SQL_QUERY, Player.class)
+            return session.createQuery(FIND_PLAYER_BY_NAME_SQL_QUERY, Player.class)
                     .setParameter("name", name)
-                    .uniqueResult();
-            return Optional.ofNullable(player);
+                    .uniqueResultOptional();
         }
     }
 

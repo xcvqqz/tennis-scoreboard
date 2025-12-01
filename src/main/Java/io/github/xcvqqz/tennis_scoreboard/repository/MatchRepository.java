@@ -21,6 +21,8 @@ public class MatchRepository {
         }
     }
 
+    Session session2 = HibernateUtil.getSessionFactory().getCurrentSession();
+
     public Long countFinishedMatches(String playerName) {
 
         StringBuilder sb = new StringBuilder(COUNT_MATCHES_SQL_QUERY);
