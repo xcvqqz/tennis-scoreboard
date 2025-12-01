@@ -9,9 +9,9 @@ import java.util.List;
 
 public class MatchRepository {
 
-    private static final String COUNT_MATCHES_SQL_QUERY = "SELECT COUNT(m) FROM Match";
-    private static final String FIND_MATCHES_SQL_QUERY = "FROM Match";
-    private static final String SQL_CONDITION = "SELECT COUNT(m) FROM Match m";
+    private static final String COUNT_ALL_QUERY = "SELECT COUNT(m) FROM Match";
+    private static final String SELECT_ALL_QUERY  = "FROM Match";
+    private static final String NAME_FILTER_JPQL = "SELECT COUNT(m) FROM Match m";
 
     public void save(Match match){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
@@ -21,33 +21,31 @@ public class MatchRepository {
         }
     }
 
-    Session session2 = HibernateUtil.getSessionFactory().getCurrentSession();
+    public Long countAll(String playerName) {
 
-    public Long countFinishedMatches(String playerName) {
+        StringBuilder hql = new StringBuilder(COUNT_ALL_QUERY);
 
-        StringBuilder sb = new StringBuilder(COUNT_MATCHES_SQL_QUERY);
-
-        if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
-            sb.append(SQL_CONDITION);
+        if(hasFilterByName(playerName)){
+            hql.append(NAME_FILTER_JPQL);
         }
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Long> query = session.createQuery(sb.toString(), Long.class);
+            Query<Long> query = session.createQuery(hql.toString(), Long.class);
 
             if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
                 query.setParameter("playerName", playerName);
             }
 
-            return query.getResultStream().findFirst().orElse(0L);
+            return query.getSingleResult();
         }
     }
 
-        public List<Match> findFinishedMatches(String playerName, int offset, int limit){
+        public List<Match> findAll(String playerName, int offset, int limit){
 
-            StringBuilder hql = new StringBuilder(FIND_MATCHES_SQL_QUERY);
+            StringBuilder hql = new StringBuilder(SELECT_ALL_QUERY);
 
-            if (!playerName.trim().isEmpty() || !playerName.isBlank()) {
-                hql.append(SQL_CONDITION);
+            if(hasFilterByName(playerName)){
+                hql.append(NAME_FILTER_JPQL);
             }
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -63,4 +61,9 @@ public class MatchRepository {
                         list();
             }
     }
+
+    private boolean hasFilterByName(String playerName) {
+        return playerName != null && !playerName.isBlank();
+    }
+
 }

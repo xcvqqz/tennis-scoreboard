@@ -24,9 +24,7 @@ public class NewMatchController extends BasicController {
         String playerOneName = Player.normalizeName(request.getParameter("playerOneName"));
         String playerTwoName = Player.normalizeName(request.getParameter("playerTwoName"));
 
-        Validator.validate(playerOneName);
-        Validator.validate(playerTwoName);
-        Validator.validateNamesUniqueness(playerOneName, playerTwoName);
+        Validator.validate(playerOneName, playerTwoName);
 
         UUID uuid = uuidUtil.getNewUUID();
 

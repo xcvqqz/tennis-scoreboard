@@ -32,11 +32,11 @@ public class FinishedMatchesPersistenceService {
 
         int offset = (int) (currentPage - 1) * DEFAULT_PAGE_SIZE;
 
-        Long totalMatches = matchRepository.countFinishedMatches(formattedName);
+        Long totalMatches = matchRepository.countAll(formattedName);
 
         Long totalPages = (long) Math.ceil((double) totalMatches / DEFAULT_PAGE_SIZE);
 
-        List<Match> matches =  matchRepository.findFinishedMatches(formattedName,  offset, pageSize);
+        List<Match> matches =  matchRepository.findAll(formattedName,  offset, pageSize);
 
         return new PaginationResponseDTO(matches, totalPages);
     }
